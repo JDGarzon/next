@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateArtifactDto } from './dto/create-artifact.dto';
 import { UpdateArtifactDto } from './dto/update-artifact.dto';
+import { UUID } from 'crypto';
 
 @Injectable()
 export class ArtifactService {
@@ -12,15 +13,15 @@ export class ArtifactService {
     return `This action returns all artifact`;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} artifact`;
   }
 
-  update(id: number, updateArtifactDto: UpdateArtifactDto) {
+  update(id: string, updateArtifactDto: UpdateArtifactDto) {
     return `This action updates a #${id} artifact`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} artifact`;
   }
 }

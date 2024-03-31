@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseUUIDPipe } from '@nestjs/common';
 import { ArtifactService } from './artifact.service';
 import { CreateArtifactDto } from './dto/create-artifact.dto';
 import { UpdateArtifactDto } from './dto/update-artifact.dto';
+import { UUID } from 'crypto';
 
 @Controller('artifact')
 export class ArtifactController {
@@ -18,17 +19,17 @@ export class ArtifactController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.artifactService.findOne(+id);
+  findOne(@Param('id',ParseUUIDPipe) id: string) {
+    return this.artifactService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateArtifactDto: UpdateArtifactDto) {
-    return this.artifactService.update(+id, updateArtifactDto);
+  update(@Param('id',ParseUUIDPipe) id: string, @Body() updateArtifactDto: UpdateArtifactDto) {
+    return this.artifactService.update(id, updateArtifactDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.artifactService.remove(+id);
+  remove(@Param('id',ParseUUIDPipe) id: string) {
+    return this.artifactService.remove(id);
   }
 }
