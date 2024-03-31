@@ -1,0 +1,81 @@
+[
+{
+    "name":"Yelan",
+    "element":"Hydro",
+    "weapon":"Bow",
+    "rarity":"5",
+    "constellation":"0",
+    "level":"90"
+},{
+    "name":"Kazuha",
+    "element":"Anemo",
+    "weapon":"Sword",
+    "rarity":"5",
+    "constellation":"0",
+    "level":"90"
+},
+{
+    "name":"Shenhe",
+    "element":"Cryo",
+    "weapon":"Polearm",
+    "rarity":"5",
+    "constellation":"0",
+    "level":"90"
+},
+{
+    "name":"Ganyu",
+    "element":"Cryo",
+    "weapon":"Bow",
+    "rarity":"5",
+    "constellation":"0",
+    "level":"90"
+},
+{
+    "name":"Xiao",
+    "element":"Anemo",
+    "weapon":"Polearm",
+    "rarity":"5",
+    "constellation":"0",
+    "level":"90"
+},
+{
+    "name":"Lisa",
+    "element":"Electro",
+    "weapon":"Catalyst",
+    "rarity":"4",
+    "constellation":"0",
+    "level":"90"
+},
+{
+    "name":"Bennett",
+    "element":"Pyro",
+    "weapon":"Sword",
+    "rarity":"4",
+    "constellation":"0",
+    "level":"90"
+},
+{
+    "name":"Diona",
+    "element":"Cryo",
+    "weapon":"Bow",
+    "rarity":"4",
+    "constellation":"0",
+    "level":"90"
+},
+{
+    "name":"Fischl",
+    "element":"Electro",
+    "weapon":"Bow",
+    "rarity":"4",
+    "constellation":"0",
+    "level":"90"
+},
+{
+    "name":"Xingqiu",
+    "element":"Hydro",
+    "weapon":"Sword",
+    "rarity":"4",
+    "constellation":"0",
+    "level":"90"
+}
+]

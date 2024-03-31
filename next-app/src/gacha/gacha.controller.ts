@@ -42,6 +42,7 @@ export class GachaController {
   }
 
   getTenCharacters(){
+    
   }
 
   getOneWeapon(){
