@@ -8,8 +8,8 @@ import { WeaponController } from 'src/weapon/weapon.controller';
 @Controller('gacha')
 export class GachaController {
   constructor(private readonly gachaService: GachaService,
-    private readonly charactersController:CharacterController,
-    private readonly weaponsController:WeaponController
+    //private readonly charactersController:CharacterController,
+    //private readonly weaponsController:WeaponController
     ) {}
 
   @Post()

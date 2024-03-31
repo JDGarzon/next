@@ -2,15 +2,21 @@ import { Injectable } from '@nestjs/common';
 import { CreateArtifactDto } from './dto/create-artifact.dto';
 import { UpdateArtifactDto } from './dto/update-artifact.dto';
 import { UUID } from 'crypto';
+import { InjectModel } from '@nestjs/mongoose';
+import { Artifact, ArtifactDocument } from './schema/artifact.schema';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class ArtifactService {
-  create(createArtifactDto: CreateArtifactDto) {
-    return 'This action adds a new artifact';
+  constructor(@InjectModel(Artifact.name) private artifactModule: Model<ArtifactDocument>) {}
+
+  async create(createArtifactDto: CreateArtifactDto): Promise<Artifact> {
+    const createdArtifact = await this.artifactModule.create(createArtifactDto);
+    return createdArtifact;
   }
 
-  findAll() {
-    return `This action returns all artifact`;
+  async findAll(): Promise<Artifact[]> {
+    return await this.artifactModule.find({});
   }
 
   findOne(id: string) {
