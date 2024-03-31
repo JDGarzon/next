@@ -6,8 +6,7 @@ export class Weapon {
     name:string
     type:Type
     level:number
-    mainStat:string
-    subStats:string[]
+    subStats:string
     effect:string
     rarity:number
 }

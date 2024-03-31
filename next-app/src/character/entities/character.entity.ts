@@ -1,5 +1,6 @@
 import { UUID } from "crypto"
 import { Weapon } from "src/weapon/entities/weapon.entity"
+import Element from "./Element"
 
 export class Character {
     id:UUID
@@ -8,6 +9,5 @@ export class Character {
     weapon:Weapon
     rarity:number
     constellation:number
-    stats:string[]
     level:number
 }
