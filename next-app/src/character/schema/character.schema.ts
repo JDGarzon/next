@@ -1,5 +1,8 @@
-import {Document} from 'mongoose';
+import {Document, Types} from 'mongoose';
 import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
+import { UUID } from 'crypto';
+import { Weapon } from '../../weapon/schema/weapon.schema';
+import Element from '../entities/Element';
 
 export type CharacterDocument = Character & Document;
 
@@ -7,16 +10,28 @@ export type CharacterDocument = Character & Document;
 export class Character{
   
   @Prop({unique:true})
-  name: string;
+  id:UUID;
+
+  @Prop({unique:true})
+  name:string;
+
+  @Prop({ enum: Element })
+  element:string;
+
+  @Prop({ type: Types.ObjectId, ref: 'Weapon' })
+  weapon: Types.ObjectId;
 
   @Prop()
-  type: string;
+  rarity:number;
 
   @Prop()
-  tier: string;
+  constellation:number;  
 
   @Prop()
-  level: string;
+  stats:string[];
+
+  @Prop()
+  level:number;
 
   @Prop()
   img: string;

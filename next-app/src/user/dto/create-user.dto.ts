@@ -1,12 +1,14 @@
-import { IsNotEmpty } from "class-validator";
+import { IsNotEmpty, IsUUID } from "class-validator";
+import { UUID } from "crypto";
 
 export class CreateUserDto {
 
     @IsNotEmpty()
-    name: string;
+    @IsUUID()
+    id:UUID;
 
     @IsNotEmpty()
-    email: string;
+    username: string;
 
     @IsNotEmpty()
     password: string;

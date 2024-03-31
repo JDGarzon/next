@@ -1,18 +1,37 @@
-import { IsNotEmpty } from "class-validator";
+import { IsEnum, IsNotEmpty, IsNumber, IsUUID } from "class-validator";
+import { UUID } from "crypto";
+import Element from '../entities/Element';
 
 export class CreateCharacterDto {
     
     @IsNotEmpty()
-    name: string;
+    @IsUUID()
+    id:UUID;
 
     @IsNotEmpty()
-    type: string;
+    name:string;
 
     @IsNotEmpty()
-    tier: string;
+    @IsEnum(Element, {message: 'not valid element'})
+    element:Element;
 
     @IsNotEmpty()
-    level: string;
+    weapon: string;
+
+    @IsNotEmpty()
+    @IsNumber()
+    rarity:number;
+
+    @IsNotEmpty()
+    @IsNumber()
+    constellation:number;  
+
+    @IsNotEmpty()
+    stats:string[];
+
+    @IsNotEmpty()
+    @IsNumber()
+    level:number;
 
     @IsNotEmpty()
     img: string;

@@ -1,22 +1,36 @@
 import {Document} from 'mongoose';
 import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
+import Type from '../entities/type';
+import { UUID } from 'crypto';
 
 export type WeaponDocument = Weapon & Document;
 
 @Schema()
 export class Weapon{
-  
+
   @Prop({unique:true})
-  name: string;
+  id:UUID;
+
+  @Prop({unique:true})
+  name:string;
+
+  @Prop({ enum: Type })
+  type:string;
 
   @Prop()
-  type: string;
+  level:number;
 
   @Prop()
-  tier: string;
+  mainStat:string;
 
   @Prop()
-  level: string;
+  subStats:string[];
+
+  @Prop()
+  effect:string;
+
+  @Prop()
+  rarity:number;
 
   @Prop()
   img: string;
