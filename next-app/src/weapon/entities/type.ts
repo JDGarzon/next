@@ -1,5 +1,9 @@
 enum Type{
-    SWORD,CLAYMORE,POLEARM,BOW,CATALYST
+    SWORD="SWORD",
+    CLAYMORE="CLAYMORE",
+    POLEARM="POLEARM",
+    BOW="BOW",
+    CATALYST="CATALYST"
 }
 
 export default Type;

@@ -1,4 +1,8 @@
 enum Type{
-    FLOWER,CROWN,FEATHER,WATCH,GOBLET
+    FLOWER="FLOWER",
+    CROWN="CROWN",
+    FEATHER="FEATHER",
+    WATCH="WATCH",
+    GOBLET="GOBLET"
 }
 export default Type;
