@@ -1,4 +1,4 @@
-import {Document} from 'mongoose';
+import {Document, Types} from 'mongoose';
 import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
 import { UUID } from 'crypto';
 import Rol from '../entities/user.rol';
@@ -7,6 +7,9 @@ export type UserDocument = User & Document;
 
 @Schema()
 export class User{
+
+  @Prop({ type: Types.ObjectId, auto: true })
+  _id: Types.ObjectId;
 
   @Prop({unique:true})
   email: string;
