@@ -1,17 +1,23 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateWeaponDto } from './dto/create-weapon.dto';
 import { UpdateWeaponDto } from './dto/update-weapon.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Weapon, WeaponDocument } from './schema/weapon.schema';
+import {v4 as uuid} from 'uuid'
 
 @Injectable()
 export class WeaponService {
   constructor(@InjectModel(Weapon.name) private weaponModule: Model<WeaponDocument>) {}
 
   async create(createWeaponDto: CreateWeaponDto): Promise<Weapon> {
-    const createdWeapon = await this.weaponModule.create(createWeaponDto);
-    return createdWeapon;
+    let weapon: any={
+      id:uuid(),
+      ...createWeaponDto
+   
+    }
+    weapon = await this.weaponModule.create(weapon);
+    return weapon;
   }
 
   async findAll(): Promise<Weapon[]> {

@@ -28,9 +28,6 @@ export class Character{
   constellation:number;  
 
   @Prop()
-  stats:string[];
-
-  @Prop()
   level:number;
 
   @Prop()

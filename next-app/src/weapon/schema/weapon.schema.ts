@@ -21,10 +21,7 @@ export class Weapon{
   level:number;
 
   @Prop()
-  mainStat:string;
-
-  @Prop()
-  subStats:string[];
+  subStats:string;
 
   @Prop()
   effect:string;
