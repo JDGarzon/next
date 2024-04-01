@@ -4,6 +4,10 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { User, UserDocument } from './schema/user.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { Request } from 'express';
+import { UnauthorizedException } from '@nestjs/common';
+import { jwtConstants } from '../auth/jwt.constants';
+import * as jwt from 'jsonwebtoken';
 
 @Injectable()
 export class UserService {
@@ -27,6 +31,34 @@ export class UserService {
   }
 
   async remove(id: string) {
-    return  await this.userModule.findByIdAndDelete(id);
+    return await this.userModule.findByIdAndDelete(id);
+  }
+
+  async updateSelf(request: Request, updateUserDto: UpdateUserDto){
+    const token = request.headers.authorization?.split(' ')[1];
+    if (!token) {
+      throw new UnauthorizedException('Token not provided');
+    }
+
+    try {
+      const decoded: any = jwt.verify(token, jwtConstants.secret);
+      return await this.userModule.findByIdAndUpdate(decoded.userId, updateUserDto);
+    } catch (error) {
+      throw new UnauthorizedException('Invalid token');
+    }
+  }
+
+  async removeSelf(request: Request){
+    const token = request.headers.authorization?.split(' ')[1];
+    if (!token) {
+      throw new UnauthorizedException('Token not provided');
+    }
+
+    try {
+      const decoded: any = jwt.verify(token, jwtConstants.secret);
+      return await this.userModule.findByIdAndDelete(decoded.userId);
+    } catch (error) {
+      throw new UnauthorizedException('Invalid token');
+    }
   }
 }

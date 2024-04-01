@@ -31,16 +31,30 @@ export class UserController {
 
   @Put(':id')
   @UseGuards(JwtAuthGuard, RolAuthGuard)
-  @Roles(['ADMIN', 'PLAYER'])
+  @Roles(['ADMIN'])
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.update(id, updateUserDto);
   }
 
   @Delete(':id')
   @UseGuards(JwtAuthGuard, RolAuthGuard)
-  @Roles(['ADMIN', 'PLAYER'])
+  @Roles(['ADMIN'])
   remove(@Param('id') id: string) {
     return this.userService.remove(id);
+  }
+
+  @Put('self')
+  @UseGuards(JwtAuthGuard, RolAuthGuard)
+  @Roles(['ADMIN', 'PLAYER'])
+  updateSelf(@Req() request: Request, @Body() updateUserDto: UpdateUserDto) {
+    return this.userService.updateSelf(request, updateUserDto);
+  }
+
+  @Delete('self')
+  @UseGuards(JwtAuthGuard, RolAuthGuard)
+  @Roles(['ADMIN', 'PLAYER'])
+  removeSelf(@Req() request: Request) {
+    return this.userService.removeSelf(request);
   }
 
 }
