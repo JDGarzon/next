@@ -22,15 +22,15 @@ export class UserService {
     return await this.userModule.find({});
   }
 
-  findOne(id: string) {
-    return `This action returns a #${id} user`;
+  async findOne(id: string) {
+    return await this.userModule.findById(id);
   }
 
-  update(id: string, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(id: string, updateUserDto: UpdateUserDto) {
+    return  await this.userModule.findByIdAndUpdate(id,updateUserDto);
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} user`;
+  async remove(id: string) {
+    return  await this.userModule.findByIdAndDelete(id);
   }
 }

@@ -9,7 +9,7 @@ export type CharacterDocument = Character & Document;
 @Schema()
 export class Character{
   
-  @Prop({unique:true})
+  @Prop({unique:true,_id:true})
   id:UUID;
 
   @Prop({unique:true})

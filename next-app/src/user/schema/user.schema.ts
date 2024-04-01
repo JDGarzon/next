@@ -7,7 +7,7 @@ export type UserDocument = User & Document;
 @Schema()
 export class User{
 
-  @Prop({unique:true})
+  @Prop({unique:true,_id:true})
   id:UUID;
 
   @Prop({unique:true})
