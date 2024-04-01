@@ -11,6 +11,9 @@ export class User{
   id:UUID;
 
   @Prop({unique:true})
+  email: string;
+
+  @Prop({unique:true})
   username: string;
 
   @Prop()
