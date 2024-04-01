@@ -1,32 +1,33 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateWeaponDto } from './dto/create-weapon.dto';
 import { UpdateWeaponDto } from './dto/update-weapon.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Weapon, WeaponDocument } from './schema/weapon.schema';
+import {v4 as uuid} from 'uuid'
 
 @Injectable()
 export class WeaponService {
   constructor(@InjectModel(Weapon.name) private weaponModule: Model<WeaponDocument>) {}
 
   async create(createWeaponDto: CreateWeaponDto): Promise<Weapon> {
-    const createdWeapon = await this.weaponModule.create(createWeaponDto);
-    return createdWeapon;
+    const weapon = await this.weaponModule.create(createWeaponDto);
+    return weapon;
   }
 
   async findAll(): Promise<Weapon[]> {
     return await this.weaponModule.find({});
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} weapon`;
+  async findOne(id: number) {
+    return await this.weaponModule.findById(id);
   }
 
-  update(id: number, updateWeaponDto: UpdateWeaponDto) {
-    return `This action updates a #${id} weapon`;
+  async update(id: number, updateWeaponDto: UpdateWeaponDto) {
+    return await this.weaponModule.findByIdAndUpdate(id,updateWeaponDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} weapon`;
+  async remove(id: number) {
+    return await this.weaponModule.findByIdAndDelete(id);
   }
 }

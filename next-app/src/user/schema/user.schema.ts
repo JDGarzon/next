@@ -8,7 +8,7 @@ export type UserDocument = User & Document;
 export class User{
 
   @Prop({unique:true})
-  id:UUID;
+  email: string;
 
   @Prop({unique:true})
   username: string;

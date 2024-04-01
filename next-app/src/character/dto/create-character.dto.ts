@@ -3,10 +3,6 @@ import { UUID } from "crypto";
 import Element from '../entities/Element';
 
 export class CreateCharacterDto {
-    
-    @IsNotEmpty()
-    @IsUUID()
-    id:UUID;
 
     @IsNotEmpty()
     name:string;
@@ -25,9 +21,6 @@ export class CreateCharacterDto {
     @IsNotEmpty()
     @IsNumber()
     constellation:number;  
-
-    @IsNotEmpty()
-    stats:string[];
 
     @IsNotEmpty()
     @IsNumber()

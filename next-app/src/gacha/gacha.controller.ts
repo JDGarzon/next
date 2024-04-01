@@ -2,24 +2,18 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { GachaService } from './gacha.service';
 import { CreateGachaDto } from './dto/create-gacha.dto';
 import { UpdateGachaDto } from './dto/update-gacha.dto';
-import { CharacterController } from 'src/character/character.controller';
-import { WeaponController } from 'src/weapon/weapon.controller';
+import { randomInt } from 'crypto';
+import { CharacterService } from 'src/character/character.service';
 
 @Controller('gacha')
 export class GachaController {
-  constructor(private readonly gachaService: GachaService,
-    //private readonly charactersController:CharacterController,
-    //private readonly weaponsController:WeaponController
+  constructor(
+    private readonly gachaService: GachaService,
     ) {}
 
   @Post()
   create(@Body() createGachaDto: CreateGachaDto) {
     return this.gachaService.create(createGachaDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.gachaService.findAll();
   }
 
   @Get(':id')
@@ -37,8 +31,17 @@ export class GachaController {
     return this.gachaService.remove(+id);
   }
 
-  getOneCharacter(){
-
+  @Get()
+  async getOneCharacter(){
+    let character = [{rarity:2}];
+    let prob=randomInt(0, 100);
+    if(prob<=3){
+      character=character.filter((char)=>char.rarity==5);
+    }else{
+      character=character.filter((char)=>char.rarity==4);
+    }
+    prob=randomInt(0, character.length-1);
+      return character[prob];
   }
 
   getTenCharacters(){

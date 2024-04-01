@@ -1,11 +1,10 @@
 import { IsNotEmpty, IsUUID } from "class-validator";
-import { UUID } from "crypto";
+
 
 export class CreateUserDto {
 
     @IsNotEmpty()
-    @IsUUID()
-    id:UUID;
+    email: string;
 
     @IsNotEmpty()
     username: string;

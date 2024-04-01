@@ -9,9 +9,6 @@ export type WeaponDocument = Weapon & Document;
 export class Weapon{
 
   @Prop({unique:true})
-  id:UUID;
-
-  @Prop({unique:true})
   name:string;
 
   @Prop({ enum: Type })
@@ -21,10 +18,7 @@ export class Weapon{
   level:number;
 
   @Prop()
-  mainStat:string;
-
-  @Prop()
-  subStats:string[];
+  subStats:string;
 
   @Prop()
   effect:string;

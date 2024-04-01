@@ -1,12 +1,7 @@
 import { IsEnum, IsNotEmpty, IsNumber, IsUUID } from "class-validator";
 import Type from "../entities/type";
-import { UUID } from "crypto";
 
 export class CreateWeaponDto {
-
-    @IsNotEmpty()
-    @IsUUID()
-    id:UUID;
 
     @IsNotEmpty()
     name:string;
@@ -20,10 +15,7 @@ export class CreateWeaponDto {
     level:number;
 
     @IsNotEmpty()
-    mainStat:string;
-
-    @IsNotEmpty()
-    subStats:string[];
+    subStats:string;
 
     @IsNotEmpty()
     effect:string;

@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { UUID } from 'crypto';
 import { User, UserDocument } from './schema/user.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -11,23 +10,23 @@ export class UserService {
   constructor(@InjectModel(User.name) private userModule: Model<UserDocument>) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
-    const createdUser = await this.userModule.create(createUserDto);
-    return createdUser;
+    const user= await this.userModule.create(createUserDto);
+    return user;
   }
 
   async findAll(): Promise<User[]> {
     return await this.userModule.find({});
   }
 
-  findOne(id: string) {
-    return `This action returns a #${id} user`;
+  async findOne(id: string) {
+    return await this.userModule.findById(id);
   }
 
-  update(id: string, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(id: string, updateUserDto: UpdateUserDto) {
+    return  await this.userModule.findByIdAndUpdate(id,updateUserDto);
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} user`;
+  async remove(id: string) {
+    return  await this.userModule.findByIdAndDelete(id);
   }
 }
