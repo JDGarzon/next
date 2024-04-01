@@ -14,21 +14,22 @@ export class GachaController {
     return this.gachaService.create(createGachaDto);
   }
 
-  @Get('character')
+  @Get('weapon1')
+  getOneWeapon(){
+    return this.gachaService.getOneWeapon();
+  }
+  @Get('weapon10')
+  getTenWeapons(){
+    return this.gachaService.getTenWeapons();
+  }
+
+  @Get('character1')
   getOneCharacter(){
     return this.gachaService.getOneCharacter();
   }
-
-  getTenCharacters(){
-    
+  @Get('character10')
+  getTenCharacter(){
+    return this.gachaService.getTenCharacters();
   }
-
-  getOneWeapon(){
-
-  }
-
-  getTenWeapon(){
-  }
-
 
 }
