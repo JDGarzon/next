@@ -1,4 +1,5 @@
-import { IsNotEmpty, IsUUID } from "class-validator";
+import { IsEnum, IsNotEmpty, IsUUID } from "class-validator";
+import Rol from "../entities/user.rol";
 
 
 export class CreateUserDto {
@@ -11,4 +12,8 @@ export class CreateUserDto {
 
     @IsNotEmpty()
     password: string;
+
+    @IsNotEmpty()
+    @IsEnum(Rol, {message: 'not valid rol'})
+    rol: Rol;
 }

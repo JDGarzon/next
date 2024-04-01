@@ -1,6 +1,7 @@
 import {Document} from 'mongoose';
 import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
 import { UUID } from 'crypto';
+import Rol from '../entities/user.rol';
 
 export type UserDocument = User & Document;
 
@@ -15,6 +16,9 @@ export class User{
 
   @Prop()
   password: string;
+
+  @Prop({ enum: Rol })
+  rol: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
