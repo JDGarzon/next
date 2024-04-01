@@ -31,14 +31,22 @@ export class GachaService {
   }
 
   async getOneCharacter(){
-    let character = [{rarity:2}];
+    let options = await this.characterModel.find({});
     let prob=randomInt(0, 100);
     if(prob<=3){
-      character=character.filter((char)=>char.rarity==5);
+      options=options.filter((char)=>char.rarity==5);
     }else{
-      character=character.filter((char)=>char.rarity==4);
+      if(prob<=20){
+        options=options.filter((char)=>char.rarity==4);
+      }else{
+        options=await this.weaponModel.find({})
+        console.log(options);
+        options=options.filter((obj)=>obj.rarity==3);
+        console.log(options);
+      }
+      
     }
-    prob=randomInt(0, character.length-1);
-      return character[prob];
+    prob=randomInt(0, options.length-1);
+      return options[prob];
   }
 }
