@@ -14,36 +14,22 @@ export class GachaController {
     return this.gachaService.create(createGachaDto);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.gachaService.findOne(+id);
+  @Get('weapon1')
+  getOneWeapon(){
+    return this.gachaService.getOneWeapon();
+  }
+  @Get('weapon10')
+  getTenWeapons(){
+    return this.gachaService.getTenWeapons();
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateGachaDto: UpdateGachaDto) {
-    return this.gachaService.update(+id, updateGachaDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.gachaService.remove(+id);
-  }
-
-  @Get()
+  @Get('character1')
   getOneCharacter(){
     return this.gachaService.getOneCharacter();
   }
-
-  getTenCharacters(){
-    
+  @Get('character10')
+  getTenCharacter(){
+    return this.gachaService.getTenCharacters();
   }
-
-  getOneWeapon(){
-
-  }
-
-  getTenWeapon(){
-  }
-
 
 }

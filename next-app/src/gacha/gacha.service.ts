@@ -31,14 +31,62 @@ export class GachaService {
   }
 
   async getOneCharacter(){
-    let character = [{rarity:2}];
-    let prob=randomInt(0, 100);
-    if(prob<=3){
-      character=character.filter((char)=>char.rarity==5);
+    let options:any[] = await this.characterModel.find({});
+    let prob=randomInt(0, 1000);
+    if(prob<=6){
+      options=options.filter((char)=>char.rarity==5);
     }else{
-      character=character.filter((char)=>char.rarity==4);
+      if(prob<=54){
+        options=options.filter((char)=>char.rarity==4);
+        let weapons=await this.weaponModel.find({});
+        weapons=weapons.filter((obj)=>obj.rarity==4);
+        options=[...options, ...weapons];
+      }else{
+        options=await this.weaponModel.find({})
+        console.log(options);
+        options=options.filter((obj)=>obj.rarity==3);
+        console.log(options);
+      }
     }
-    prob=randomInt(0, character.length-1);
-      return character[prob];
+    prob=randomInt(0, options.length-1);
+      return options[prob];
+  }
+
+  async getTenCharacters(){
+    let result:any[]=[]
+    for(let i=0;i<10;i++){
+      result.push(await this.getOneCharacter());
+    }
+    return result;
+  }
+
+  async getOneWeapon(){
+    let options:any[] = await this.weaponModel.find({});
+    let prob=randomInt(0, 1000);
+    if(prob<=6){
+      options=options.filter((char)=>char.rarity==5);
+    }else{
+      if(prob<=54){
+        options=options.filter((char)=>char.rarity==4);
+        let weapons=await this.weaponModel.find({});
+        weapons=weapons.filter((obj)=>obj.rarity==4);
+        options=[...options, ...weapons];
+      }else{
+        options=await this.weaponModel.find({})
+        console.log(options);
+        options=options.filter((obj)=>obj.rarity==3);
+        console.log(options);
+      }
+    }
+    prob=randomInt(0, options.length-1);
+      return options[prob];
+  }
+
+  async getTenWeapons(){
+    let result:any[]=[]
+    for(let i=0;i<10;i++){
+      result.push(await this.getOneWeapon());
+    }
+    return result;
   }
 }
