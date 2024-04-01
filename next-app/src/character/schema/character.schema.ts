@@ -22,8 +22,7 @@ export class Character{
   rarity:number;
 
   @Prop()
-  constellation:number;  
-
+  constellation:number;
 
   @Prop()
   level:number;

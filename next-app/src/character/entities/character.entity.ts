@@ -3,7 +3,6 @@ import { Weapon } from "src/weapon/entities/weapon.entity"
 import Element from "./Element"
 
 export class Character {
-    id:UUID
     name:string
     element:Element
     weapon:Weapon
