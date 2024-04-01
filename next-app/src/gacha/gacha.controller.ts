@@ -14,22 +14,7 @@ export class GachaController {
     return this.gachaService.create(createGachaDto);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.gachaService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateGachaDto: UpdateGachaDto) {
-    return this.gachaService.update(+id, updateGachaDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.gachaService.remove(+id);
-  }
-
-  @Get()
+  @Get('character')
   getOneCharacter(){
     return this.gachaService.getOneCharacter();
   }

@@ -32,11 +32,11 @@ export class GachaService {
 
   async getOneCharacter(){
     let options = await this.characterModel.find({});
-    let prob=randomInt(0, 100);
-    if(prob<=3){
+    let prob=randomInt(0, 1000);
+    if(prob<=6){
       options=options.filter((char)=>char.rarity==5);
     }else{
-      if(prob<=20){
+      if(prob<=50){
         options=options.filter((char)=>char.rarity==4);
       }else{
         options=await this.weaponModel.find({})
