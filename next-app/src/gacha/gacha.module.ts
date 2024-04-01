@@ -1,15 +1,16 @@
 import { Module } from '@nestjs/common';
 import { GachaService } from './gacha.service';
 import { GachaController } from './gacha.controller';
-import { CharacterModule } from '../character/character.module';
-import { WeaponModule } from '../weapon/weapon.module';
-import { CharacterService } from 'src/character/character.service';
-import { WeaponService } from 'src/weapon/weapon.service';
+import { Character, CharacterSchema } from 'src/character/schema/character.schema';
+import { Weapon, WeaponSchema } from 'src/weapon/schema/weapon.schema';
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
-  imports: [CharacterModule, WeaponModule],
+  imports: [
+    MongooseModule.forFeature([{name: Character.name, schema: CharacterSchema}, {name: Weapon.name, schema: WeaponSchema}]),
+  ],
   controllers: [GachaController],
-  providers: [GachaService,CharacterService,WeaponService],
+  providers: [GachaService],
   
 })
 export class GachaModule {}
