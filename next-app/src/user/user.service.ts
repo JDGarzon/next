@@ -10,11 +10,7 @@ export class UserService {
   constructor(@InjectModel(User.name) private userModule: Model<UserDocument>) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
-    let user: any = {
-      id: uuid(),
-      ...createUserDto
-    }
-    user= await this.userModule.create(user);
+    const user= await this.userModule.create(createUserDto);
     return user;
   }
 

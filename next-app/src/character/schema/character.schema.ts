@@ -8,9 +8,6 @@ export type CharacterDocument = Character & Document;
 
 @Schema()
 export class Character{
-  
-  @Prop({unique:true,_id:true})
-  id:UUID;
 
   @Prop({unique:true})
   name:string;
@@ -26,6 +23,7 @@ export class Character{
 
   @Prop()
   constellation:number;  
+
 
   @Prop()
   level:number;

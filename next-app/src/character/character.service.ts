@@ -11,12 +11,7 @@ export class CharacterService {
   constructor(@InjectModel(Character.name) private characterModule: Model<CharacterDocument>) {}
 
   async create(createCharacterDto: CreateCharacterDto): Promise<Character> {
-    let character:any={
-      id:uuid(),
-      ...createCharacterDto
-   
-    }
-    character = await this.characterModule.create(character);
+    const character = await this.characterModule.create(createCharacterDto);
     return character;
   }
 
@@ -24,15 +19,22 @@ export class CharacterService {
     return await this.characterModule.find({});
   }
 
-  findOne(id: string) {
-    return `This action returns a #${id} character`;
+  async findOne(id: string) {
+    let character = {}
+    try{
+      character=await this.characterModule.findById(id);
+      return character;
+    }catch(Error){
+      throw new NotFoundException(`Character with id ${id} not found`);
+    } 
   }
 
-  update(id: string, updateCharacterDto: UpdateCharacterDto) {
-    return `This action updates a #${id} character`;
+  async update(id: string, updateCharacterDto: UpdateCharacterDto) {
+    await this.characterModule.findByIdAndUpdate(id,updateCharacterDto);
+    return await this.characterModule.findById(id);
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} character`;
+  async remove(id: string) {
+    return await this.characterModule.findByIdAndDelete(id);
   }
 }

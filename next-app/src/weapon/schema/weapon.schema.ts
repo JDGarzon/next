@@ -8,9 +8,6 @@ export type WeaponDocument = Weapon & Document;
 @Schema()
 export class Weapon{
 
-  @Prop({unique:true,_id:true})
-  id:UUID;
-
   @Prop({unique:true})
   name:string;
 
