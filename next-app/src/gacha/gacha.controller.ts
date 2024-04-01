@@ -9,6 +9,7 @@ import { CharacterService } from 'src/character/character.service';
 export class GachaController {
   constructor(
     private readonly gachaService: GachaService,
+    private readonly characterService: CharacterService
     ) {}
 
   @Post()
