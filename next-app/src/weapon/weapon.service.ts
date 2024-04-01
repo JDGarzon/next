@@ -4,7 +4,6 @@ import { UpdateWeaponDto } from './dto/update-weapon.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Weapon, WeaponDocument } from './schema/weapon.schema';
-import {v4 as uuid} from 'uuid'
 
 @Injectable()
 export class WeaponService {

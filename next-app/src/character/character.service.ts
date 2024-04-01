@@ -1,7 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateCharacterDto } from './dto/create-character.dto';
 import { UpdateCharacterDto } from './dto/update-character.dto';
-import {v4 as uuid} from 'uuid'
 import { Character, CharacterDocument } from './schema/character.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
