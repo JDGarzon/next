@@ -6,6 +6,8 @@ import { User, UserDocument } from 'src/user/schema/user.schema';
 import { Model } from 'mongoose';
 import { hash, compare } from 'bcrypt'
 import { JwtService } from '@nestjs/jwt';
+import { CreateUserDto } from 'src/user/dto/create-user.dto';
+import Rol from 'src/user/entities/user.rol';
 
 @Injectable()
 export class AuthService {
@@ -14,10 +16,15 @@ export class AuthService {
     private jwtService: JwtService
     ) {}
 
-  async register(userObject: RegisterAuthDto){
-    const { password } = userObject;
+  async register(userDto: RegisterAuthDto){
+    const { password } = userDto;
     const plainToHash = await hash(password, 10);
-    userObject = {...userObject, password:plainToHash};
+    const userObject = new CreateUserDto();
+    userObject.email = userDto.email;
+    userObject.username = userDto.username;
+    userObject.password = plainToHash;
+    userObject.rol = Rol.PLAYER;
+
     return this.userModel.create(userObject);
   }
 

@@ -2,6 +2,7 @@ import {Document, Types} from 'mongoose';
 import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
 import { UUID } from 'crypto';
 import Rol from '../entities/user.rol';
+import { List } from 'postcss/lib/list';
 
 export type UserDocument = User & Document;
 
@@ -22,6 +23,9 @@ export class User{
 
   @Prop({ enum: Rol })
   rol: string;
+
+  @Prop({ type: [[]], default: [] })
+  almanac: any[][];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
