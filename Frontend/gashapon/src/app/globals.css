@@ -1,8 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+
 :root {
+  --text-font: 'Playfair Display'; 
+  --white: #FFFFFF;
+  --black: #151515;
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
@@ -30,4 +36,109 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+.banner{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 45rem;
+  background-image: url(/img/bannerBackground.jpg);
+}
+
+.banner-text-box{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(130, 0, 0, 0.4);
+  height: 65%;
+  width: 35%;
+  border-radius: 1%;
+  margin-left: 3rem;
+}
+
+.banner-title{
+  font-family: var(--text-font);
+  color: var(--white);
+  font-size: 3.2rem;
+  font-weight: 500;
+  margin: 1rem 0;
+}
+
+.best-price-name{
+  font-family: var(--text-font);
+  font-size: 2rem;
+  color: var(--white);
+  font-weight: 400;
+  margin: 1rem 0;
+}
+
+.stars{
+  display: flex;
+  flex-direction: row;
+  margin: 1rem 0;
+}
+
+.star{
+  width: 4rem;
+  height: 4rem;
+}
+
+.banner-text{
+  font-family: var(--text-font);
+  font-size: 2rem;
+  color: var(--white);
+  text-align: center;
+  font-weight: 400;
+  width: 70%;
+  margin: 1rem 0;
+}
+
+.banner-image-section{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+  height: 65%;
+  margin-right: 3rem;
+
+}
+
+.banner-character{
+  height: 80%;
+  width: 100%;
+  border: 3px solid var(--white);
+  border-radius: 1%;
+}
+
+.banner-btns{
+  display: flex;
+  flex-direction: row;
+  width: 60%;
+  justify-content: space-around;
+}
+
+.wish-btn{
+  border-radius: 6%;
+  background-color: var(--white);
+  border: 2px solid var(--black);
+  color: var(--black);
+  font-family: var(--text-font);
+  font-size: 2.2rem;
+  font-weight: 500;
+  align-self: center;
+  justify-self: center;
+  margin-top: 2rem;
+  padding: 0.1rem 2rem;
+  width: 40%;
+}
+
+.wish-btn:hover{
+  transform: scale(1.3);
+  cursor: pointer;
 }
