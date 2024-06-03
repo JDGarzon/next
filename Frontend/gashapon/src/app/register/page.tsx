@@ -1,14 +1,14 @@
 "use client";
-
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import "../globals.css";
 
 const RegisterPage = () => {
   const [errors, setErrors] = useState<string[]>([]);
-  const [name, setName] = useState<string>("test");
-  const [email, setEmail] = useState<string>("test@test.com");
-  const [password, setPassword] = useState<string>("test");
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -55,50 +55,53 @@ const RegisterPage = () => {
   };
 
   return (
-    <div>
-      <h1>Register</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="test"
-          name="name"
-          className="form-control mb-2"
-          value={name}
-          onChange={(event) => setName(event.target.value)}
-        />
-        <input
-          type="email"
-          placeholder="test@test.com"
-          name="email"
-          className="form-control mb-2"
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="test"
-          name="password"
-          className="form-control mb-2"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-        />
-        <button
-          type="submit"
-          className="btn btn-primary"
-        >
-          Register
-        </button>
-      </form>
+    <div className="register-container"> {/* Agregamos una clase de contenedor similar al login */}
+      <div className="register-box"> {/* Agregamos una clase de caja similar al login */}
+        <h1>Register</h1>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="username"
+            name="name"
+            className="form-control mb-2"
+            value={name}
+            onChange={(event) => setName(event.target.value)}
+          />
+          <input
+            type="email"
+            placeholder="email"
+            name="email"
+            className="form-control mb-2"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="password"
+            name="password"
+            className="form-control mb-2"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+          />
+          <button type="submit" className="btn btn-primary">
+            Register
+          </button>
+          <button type="button" className="btn btn-secondary" onClick={()=>{router.push("/login");}}>
+            Cancel
+          </button>
+          
+        </form>
 
-      {errors.length > 0 && (
-        <div className="alert alert-danger mt-2">
-          <ul className="mb-0">
-            {errors.map((error) => (
-              <li key={error}>{error}</li>
-            ))}
-          </ul>
-        </div>
-      )}
+        {errors.length > 0 && (
+          <div className="alert alert-danger mt-2">
+            <ul className="mb-0">
+              {errors.map((error) => (
+                <li key={error}>{error}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

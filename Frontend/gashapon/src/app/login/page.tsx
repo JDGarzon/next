@@ -3,11 +3,13 @@
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import Image from "next/image";
+import "../globals.css";
 
 const LoginPage = () => {
   const [errors, setErrors] = useState<string[]>([]);
-  const [username, setUsername] = useState("Ingresar nombre de usuario");
-  const [password, setPassword] = useState("123123");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -29,43 +31,55 @@ const LoginPage = () => {
   };
 
   return (
-    <div>
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="test@test.com"
-          name="username"
-          className="form-control mb-2"
-          value={username}
-          onChange={(event) => setUsername(event.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="123123"
-          name="password"
-          className="form-control mb-2"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-        />
-        <button
-          type="submit"
-          className="btn btn-primary"
-        >
-          Login
-        </button>
-      </form>
+    <div className="login-container">
+      <div className="login-box">
 
-      {errors.length > 0 && (
-        <div className="alert alert-danger mt-2">
-          <ul className="mb-0">
-            {errors.map((error) => (
-              <li key={error}>{error}</li>
-            ))}
-          </ul>
+         <div className="login-header">
+          <img className="icon" src="/img/wish.webp" alt="wish" width={60} height={60} />
+          <h1 className="login-title">Gachapon</h1>
+          <img className="icon" src="/img/wish.webp" alt="wish" width={60} height={60} />
         </div>
-      )}
+        <p className="login-subtitle">Start the adventure. Let's make a wish</p>
+        <form onSubmit={handleSubmit} className="login-form">
+          <label className="form-label">Username</label>
+          <input
+            type="text"
+            placeholder="Username"
+            name="username"
+            className="form-control mb-2"
+            value={username}
+            onChange={(event) => setUsername(event.target.value)}
+          />
+          <label className="form-label">Password</label>
+          <input
+            type="password"
+            placeholder="password"
+            name="password"
+            className="form-control mb-2"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+          />
+          <div className="button-group">
+            <button type="submit" className="btn btn-primary">
+              Play!
+            </button>
+            <button type="button" className="btn btn-secondary" onClick={()=>{router.push("/register");}}>
+              Sign in
+            </button>
+          </div>
+        </form>
+        {errors.length > 0 && (
+          <div className="alert alert-danger mt-2">
+            <ul className="mb-0">
+              {errors.map((error) => (
+                <li key={error}>{error}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
+
 export default LoginPage;
