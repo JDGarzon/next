@@ -42,8 +42,8 @@ export default function Banner(){
         });
         const data = await res.json();
         console.log(data)
-        const id = new URLSearchParams({ characters: JSON.stringify(data) }).toString();
-        router.push(`/game/banner/wish/${id}`);
+        const queryString = new URLSearchParams({ characters: JSON.stringify(data) }).toString();
+        router.push(`/game/banner/[id]?id=${queryString}`);
     }
 
     const fetch1Wishes=async()=>{
@@ -56,8 +56,8 @@ export default function Banner(){
           });
           const data = await res.json();
           console.log(data)
-          const id = new URLSearchParams({ characters: JSON.stringify(data) }).toString();
-          router.push(`/game/banner/wish/${id}`);
+          const queryString = new URLSearchParams({ characters: JSON.stringify(data) }).toString();
+        router.push(`/game/banner/[id]?id=${queryString}`);
     }
 
     return (
