@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,7 +6,7 @@
 
 
 :root {
-  --text-font: 'Playfair Display'; 
+  --text-font: "Play", sans-serif; 
   --white: #FFFFFF;
   --black: #151515;
   --foreground-rgb: 0, 0, 0;

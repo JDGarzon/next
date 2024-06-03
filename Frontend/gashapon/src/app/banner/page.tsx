@@ -17,7 +17,7 @@ export default function Banner(){
                 <p className="banner-text"> Gachapon especial disponible </p>
             </div>
             <div className="banner-image-section">
-                <Image className="banner-character" src="/img/arlecchino2.jpg" alt="arlecchino" width={500} height={300}/>
+                <Image className="banner-character" src="/img/arlecchino.jpg" alt="arlecchino" width={500} height={300}/>
                 <div className="banner-btns">
                     <button className="wish-btn"> x1 </button>
                     <button className="wish-btn"> x10 </button>
