@@ -428,3 +428,42 @@ body, html {
   padding: 0;
   margin: 0;
 }
+
+.containerCharacter {
+  padding: 20px;
+  text-align: center;
+}
+
+.charactersGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 20px; /* Agrega margen inferior */
+}
+
+.card {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  width: 200px;
+  background-color: #f9f9f9;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.characterImage {
+  border-radius: 50%;
+}
+
+.characterName {
+  font-size: 1.5em;
+  margin: 10px 0;
+}
+
+.characterLevel,
+.characterElement,
+.characterRarity,
+.characterConstellation {
+  margin: 5px 0;
+}
