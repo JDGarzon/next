@@ -3,8 +3,7 @@
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import Image from "next/image";
-import "../globals.css";
+import "../../globals.css";
 
 const LoginPage = () => {
   const [errors, setErrors] = useState<string[]>([]);
@@ -63,7 +62,7 @@ const LoginPage = () => {
             <button type="submit" className="btn btn-primary">
               Play!
             </button>
-            <button type="button" className="btn btn-secondary" onClick={()=>{router.push("/register");}}>
+            <button type="button" className="btn btn-secondary" onClick={()=>{router.push("/sign/register");}}>
               Sign in
             </button>
           </div>

@@ -2,7 +2,7 @@
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import "../globals.css";
+import "../../globals.css";
 
 const RegisterPage = () => {
   const [errors, setErrors] = useState<string[]>([]);
@@ -86,7 +86,7 @@ const RegisterPage = () => {
           <button type="submit" className="btn btn-primary">
             Register
           </button>
-          <button type="button" className="btn btn-secondary" onClick={()=>{router.push("/login");}}>
+          <button type="button" className="btn btn-secondary" onClick={()=>{router.push("/sign/login");}}>
             Cancel
           </button>
           
