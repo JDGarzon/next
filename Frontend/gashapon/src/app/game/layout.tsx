@@ -16,9 +16,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html>
       <body className={`${inter.className} game-body`}>
-        <div className="game-nav">
+        <nav className="game-nav">
             <div className="user-nav-details-container">
                 <Image className="user-img" src="/icons/userIcon.png" alt="User placeholder" width={100} height={30}></Image>
                 <div className="level-bar-container">
@@ -35,11 +35,12 @@ export default function RootLayout({
                 <button className="more-wishes-btn"> + </button>
             </div>
 
-        </div>
+        </nav>
         {children}
 
         
       </body>
     </html>
+      
   );
 }

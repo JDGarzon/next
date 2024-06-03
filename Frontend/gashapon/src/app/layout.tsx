@@ -19,11 +19,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <main className="container">
-          <SessionAuthProvider>
-            {children}
-          </SessionAuthProvider>
-        </main>
+        <SessionAuthProvider>
+          {children}
+        </SessionAuthProvider>
+        
       </body>
     </html>
   );
