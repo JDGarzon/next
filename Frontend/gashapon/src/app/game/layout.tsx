@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} game-body`}>
-        <nav className="game-nav">
+        <div className="game-nav">
             <div className="user-nav-details-container">
                 <Image className="user-img" src="/icons/userIcon.png" alt="User placeholder" width={100} height={30}></Image>
                 <div className="level-bar-container">
@@ -35,7 +35,7 @@ export default function RootLayout({
                 <button className="more-wishes-btn"> + </button>
             </div>
 
-        </nav>
+        </div>
         {children}
 
         
