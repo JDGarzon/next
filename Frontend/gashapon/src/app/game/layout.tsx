@@ -18,6 +18,7 @@ export default function RootLayout({
   return (
     <html>
       <body className={`${inter.className} game-body`}>
+        
         <nav className="game-nav">
             <div className="user-nav-details-container">
                 <Image className="user-img" src="/icons/userIcon.png" alt="User placeholder" width={100} height={30}></Image>
@@ -36,9 +37,7 @@ export default function RootLayout({
             </div>
 
         </nav>
-        {children}
-
-        
+          {children}  
       </body>
     </html>
       
