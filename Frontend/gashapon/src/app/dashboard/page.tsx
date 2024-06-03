@@ -11,7 +11,7 @@ const Dashboard = () => {
   }
 
   const getCats = async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/cats`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/${session?.user?.username}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -19,7 +19,7 @@ const Dashboard = () => {
       },
     });
     const data = await res.json();
-    setCats(data);
+    setCats(data.almanac);
   };
 
   return (
