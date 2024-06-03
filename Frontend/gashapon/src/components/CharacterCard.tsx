@@ -9,7 +9,6 @@ const CharacterCard = ({ character }) => {
       <p className={"characterLevel"}>Level: {character.level}</p>
       <p className={"characterElement"}>Element: {character.element}</p>
       <p className={"characterRarity"}>Rarity: {character.rarity}★</p>
-      <p className={"characterConstellation"}>Constellation: {character.constellation}</p>
     </div>
   );
 };
