@@ -56,6 +56,15 @@ export default function UpdateCharacter() {
     e.preventDefault();
     setErrors([]);
     try {
+      console.log({
+        "name": formData.name,
+        "subStats": formData.subStats,
+        "effect": formData.effect,
+        "type": formData.type,
+        "rarity": Number(formData.rarity),
+        "img": formData.img,
+        "level":90
+        })
       const res2 = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/weapon/${formData._id}`, {
         method: "PUT",
         headers: {
@@ -67,8 +76,9 @@ export default function UpdateCharacter() {
           "subStats": formData.subStats,
           "effect": formData.effect,
           "type": formData.type,
-          "rarity": formData.rarity,
+          "rarity": Number(formData.rarity),
           "img": formData.img,
+          "level":90
           }),
       });
 

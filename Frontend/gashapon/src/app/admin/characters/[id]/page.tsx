@@ -12,7 +12,8 @@ export default function UpdateCharacter() {
     name: '',
     element: '',
     rarity: '',
-    img: ''
+    img: '',
+    weapon:""
   });
   const [errors, setErrors] = useState<string[]>([]);
   const search = useSearchParams ();
@@ -40,6 +41,7 @@ export default function UpdateCharacter() {
         },
       });
       const resD = await res.json();
+      console.log(resD)
       setFormData(resD);
     } catch (error) {
       console.error('Error fetching characters:', error);
@@ -63,8 +65,11 @@ export default function UpdateCharacter() {
         body:JSON.stringify({
           name: formData.name,
           element: formData.element,
-          rarity: formData.rarity,
-          img: formData.img
+          rarity: Number(formData.rarity),
+          img: formData.img,
+          "level":90,
+          "constellation":0,
+          "weapon":"BOW"
           }),
       });
 
@@ -102,6 +107,10 @@ export default function UpdateCharacter() {
           <div className='character-form-element'>
             <label className='character-form-label' htmlFor="name">Nombre:</label>
             <input className='character-form-input' placeholder='Ingrese el nombre del personaje' type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
+          </div>
+          <div className='character-form-element'>
+            <label className='character-form-label' htmlFor="weapon">Tipo de arma:</label>
+            <input className='character-form-input' placeholder='Ingrese el nombre del personaje' type="text" id="weapon" name="weapon" value={formData.weapon} onChange={handleChange} required />
           </div>
           <div className='character-form-element'>
             <label className='character-form-label' htmlFor="element">Elemento:</label>
