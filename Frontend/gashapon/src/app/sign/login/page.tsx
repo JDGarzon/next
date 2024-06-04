@@ -14,7 +14,7 @@ const LoginPage = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setErrors([]);
-
+    
     const responseNextAuth = await signIn("credentials", {
       username,
       password,
@@ -25,8 +25,10 @@ const LoginPage = () => {
       setErrors(responseNextAuth.error.split(","));
       return;
     }
+    
 
     router.push("/game/banner");
+    console.log("**********")
   };
 
   return (

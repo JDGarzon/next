@@ -9,7 +9,8 @@ export default function User(){
     const { data: session, status } = useSession();
     const [user, setUser] = useState({
       "level":1,
-      "wishes":0
+      "wishes":0,
+      "_id":""
     });
     const router = useRouter();
     const [errors, setErrors] = useState<string[]>([]);
