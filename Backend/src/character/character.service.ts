@@ -19,13 +19,7 @@ export class CharacterService {
   }
 
   async findOne(id: string) {
-    let character = {}
-    try{
-      character=await this.characterModule.findById(id);
-      return character;
-    }catch(Error){
-      throw new NotFoundException(`Character with id ${id} not found`);
-    } 
+    return await this.characterModule.findById(id);
   }
 
   async update(id: string, updateCharacterDto: UpdateCharacterDto) {
@@ -35,5 +29,13 @@ export class CharacterService {
 
   async remove(id: string) {
     return await this.characterModule.findByIdAndDelete(id);
+  }
+
+  async seedCharacter(createCharacter: Character[]){
+    await this.characterModule.insertMany(createCharacter);
+  }
+
+  async getByName(nameT: string){
+    return await this.characterModule.find({name: nameT});
   }
 }

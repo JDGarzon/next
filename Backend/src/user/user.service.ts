@@ -4,10 +4,6 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { User, UserDocument } from './schema/user.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Request } from 'express';
-import { UnauthorizedException } from '@nestjs/common';
-import { jwtConstants } from '../auth/jwt.constants';
-import * as jwt from 'jsonwebtoken';
 
 @Injectable()
 export class UserService {
@@ -23,42 +19,39 @@ export class UserService {
   }
 
   async findOne(id: string) {
-    return await this.userModule.findById(id);
+    return await this.userModule.findById(id).exec();
   }
 
+  async findByUsername(id: string) {
+    const userA=await this.userModule.find({"username":id}).exec();
+    let user =userA[0]
+    let userToSend={
+      "_id":user._id,
+      "username":user.username,
+      "almanac":user.almanac,
+      "rol":user.rol,
+      "level":user.level,
+      "level_points":user.level_points,
+      "wishes":user.wishes,
+      "email":user.email
+    }
+    return userToSend;
+  }
+
+
   async update(id: string, updateUserDto: UpdateUserDto) {
-    return  await this.userModule.findByIdAndUpdate(id,updateUserDto);
+    return await this.userModule.findByIdAndUpdate(id,updateUserDto);
   }
 
   async remove(id: string) {
     return await this.userModule.findByIdAndDelete(id);
   }
 
-  async updateSelf(request: Request, updateUserDto: UpdateUserDto){
-    const token = request.headers.authorization?.split(' ')[1];
-    if (!token) {
-      throw new UnauthorizedException('Token not provided');
-    }
-
-    try {
-      const decoded: any = jwt.verify(token, jwtConstants.secret);
-      return await this.userModule.findByIdAndUpdate(decoded.userId, updateUserDto);
-    } catch (error) {
-      throw new UnauthorizedException('Invalid token');
-    }
+  async updateSelf(_id:string, updateUserDto: UpdateUserDto){
+    return await this.userModule.findByIdAndUpdate(_id, updateUserDto);
   }
 
-  async removeSelf(request: Request){
-    const token = request.headers.authorization?.split(' ')[1];
-    if (!token) {
-      throw new UnauthorizedException('Token not provided');
-    }
-
-    try {
-      const decoded: any = jwt.verify(token, jwtConstants.secret);
-      return await this.userModule.findByIdAndDelete(decoded.userId);
-    } catch (error) {
-      throw new UnauthorizedException('Invalid token');
-    }
+  async removeSelf(_id:string){
+    return await this.userModule.findByIdAndDelete(_id);
   }
 }

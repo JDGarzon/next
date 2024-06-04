@@ -1,10 +1,10 @@
-import { Controller, Get, Post, Body, Param, Delete, UseGuards, Put, Req } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, UseGuards, Put } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { JwtAuthGuard, RolAuthGuard } from 'src/auth/jwt-auth.guard';
-import { Roles } from 'src/decorator/rol.decorator';
-import { Request } from 'express';
+import { JwtAuthGuard, RolAuthGuard } from '../auth/jwt-auth.guard';
+import { Roles } from '../decorator/rol.decorator';
+import { GetUser } from '../decorator/get-user.decorator';
 
 @Controller('user')
 export class UserController {
@@ -26,7 +26,7 @@ export class UserController {
   @UseGuards(JwtAuthGuard, RolAuthGuard)
   @Roles(['ADMIN', 'PLAYER'])
   findOne(@Param('id') id: string) {
-    return this.userService.findOne(id);
+    return this.userService.findByUsername(id);
   }
 
   @Put(':id')
@@ -46,15 +46,15 @@ export class UserController {
   @Put('self')
   @UseGuards(JwtAuthGuard, RolAuthGuard)
   @Roles(['ADMIN', 'PLAYER'])
-  updateSelf(@Req() request: Request, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.updateSelf(request, updateUserDto);
+  updateSelf(@GetUser('_id') _id: string, @Body() updateUserDto: UpdateUserDto) {
+    return this.userService.updateSelf(_id, updateUserDto);
   }
 
   @Delete('self')
   @UseGuards(JwtAuthGuard, RolAuthGuard)
   @Roles(['ADMIN', 'PLAYER'])
-  removeSelf(@Req() request: Request) {
-    return this.userService.removeSelf(request);
+  removeSelf(@GetUser('_id') _id: string) {
+    return this.userService.removeSelf(_id);
   }
 
 }
