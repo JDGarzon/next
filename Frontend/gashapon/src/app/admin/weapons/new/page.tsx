@@ -1,13 +1,17 @@
 "use client"
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from "next/navigation";
+import "../../globals.css"
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default function CreateCharacter() {
+
+export default function CreateWeapon() {
   const [formData, setFormData] = useState({
     name: '',
-    element: '',
+    type:'',
+    subStats:'',
+    effect:'',
     rarity: '',
     img: ''
   });
@@ -21,8 +25,8 @@ export default function CreateCharacter() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      console.log('Formulario enviado:', {...formData, "constellation":0,level: 90});
-      router.push('/admin/characters');
+      console.log('Formulario enviado:', {...formData, level: 90});
+      router.push('/admin/weapons');
     } catch (error) {
       console.error('Error al enviar el formulario:', error);
     }
@@ -37,9 +41,9 @@ export default function CreateCharacter() {
       </div>
       <div className="table-container">
         <div className="table-header">
-          <h2> Nuevo Personaje</h2>
+          <h2>Nueva Arma</h2>
           <div>
-            <Link href={`/admin/characters`} className="table-header-btn">
+            <Link href={`/admin/weapons`} className="table-header-btn">
               <Image className="table-option-btn" src={"/icons/return.png"} alt={"Return Icon"} width={40} height={40} />
               <p>Regresar</p>
             </Link>
@@ -48,24 +52,33 @@ export default function CreateCharacter() {
         <form className="character-form" onSubmit={handleSubmit}>
           <div className='character-form-element'>
             <label className='character-form-label' htmlFor="name">Nombre:</label>
-            <input className='character-form-input' placeholder='Ingrese el nombre del personaje' type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
+            <input className='character-form-input' placeholder='Ingrese el nombre del arma' type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
           </div>
           <div className='character-form-element'>
-            <label className='character-form-label' htmlFor="element">Elemento:</label>
-            <input className='character-form-input' placeholder='Ingrese el elemento del personaje' type="text" id="element" name="element"  value={formData.element} onChange={handleChange} required />
+            <label className='character-form-label' htmlFor="element">Tipo:</label>
+            <input className='character-form-input' placeholder='Ingrese el tipo del arma' type="text" id="element" name="element"  value={formData.type} onChange={handleChange} required />
+          </div>
+          <div className='character-form-element'>
+            <label className='character-form-label' htmlFor="substats">Sub Stats:</label>
+            <input className='character-form-input' placeholder='Ingrese las estadisticas del arma' type="text" id="substats" name="substats" value={formData.subStats} onChange={handleChange} required min="1" max="5"/>
+          </div>
+          <div className='character-form-element'>
+            <label className='character-form-label' htmlFor="effect">Effect:</label>
+            <input className='character-form-input' placeholder='Ingrese el efecto del arma' type="text" id="effect" name="effect" value={formData.effect} onChange={handleChange} required />
           </div>
           <div className='character-form-element'>
             <label className='character-form-label' htmlFor="rarity">Rareza:</label>
-            <input className='character-form-input' placeholder='Ingrese el valor de rareza del personaje (1 a 5)' type="number" id="rarity" name="rarity" value={formData.rarity} onChange={handleChange} required min="1" max="5"/>
+            <input className='character-form-input' placeholder='Ingrese el valor de rareza del arma (1 a 5)' type="number" id="rarity" name="rarity" value={formData.rarity} onChange={handleChange} required min="1" max="5"/>
           </div>
           <div className='character-form-element'>
             <label className='character-form-label' htmlFor="img">URL de la imagen:</label>
             <input className='character-form-input' placeholder='Ingrese la imagen del personaje' type="url" id="img" name="img" value={formData.img} onChange={handleChange} required />
           </div>
-          <button className='submit-btn' type="submit">Crear Personaje</button>
+          <button className='submit-btn' type="submit">Crear Arma</button>
         </form>
       </div>
     </div>
+
     /*
     <div>
       <h1>Crear Personaje</h1>
@@ -89,6 +102,7 @@ export default function CreateCharacter() {
         <button type="submit">Crear Personaje</button>
       </form>
     </div>
+
     */
   );
 }

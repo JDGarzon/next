@@ -1,47 +1,51 @@
-import "../globals.css"
+import Link from "next/link";
 import Image from 'next/image';
-
-import Link from 'next/link';
+import "../globals.css";
 
 const AdminDashboard = () => {
   return (
-    <div className={"container-table"}>
-      <h1>Admin Dashboard</h1>
-      <table className={"table"}>
-        <thead>
-          <tr>
-            <th>Elements</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Users</td>
-            <td>
-              <Link href="/admin/users">
-              <Image src={"/icons/book.png"} alt={"Ir"} width={20} height={20} className="characterImage" />
+    <div className="admin-container">
+      <div className="admin-dashboard-header">
+        <h1 className="dashboard-title">Admin Dashboard</h1>
+        <button className="sign-out-btn">Sign out</button>
+      </div>
+      <div className="table-container">
+        <div className="table-header">
+          <h2>Elementos</h2>
+        </div>
+        {categories.map((element, index) => (
+          <div key={index} className="table-element">
+            <h3 className="table-element-name">{element.categoryName}</h3>
+            <div className="table-btns">
+              <Link href={`/admin${element.path}`} className="table-btn"> 
+                <Image className="table-option-btn" src={"/icons/book.png"} alt={"View Icon"} width={40} height={40} />
+                <p>Ver</p>
               </Link>
-            </td>
-          </tr>
-          <tr>
-            <td>Characters</td>
-            <td>
-              <Link href="/admin/characters">
-              <Image src={"/icons/book.png"} alt={"Ir"} width={20} height={20} className="characterImage" />
-              </Link>
-            </td>
-          </tr>
-          <tr>
-            <td>Weapons</td>
-            <td>
-              <Link href="/admin/weapons">
-              <Image src={"/icons/book.png"} alt={"Ir"} width={20} height={20} className="characterImage" />
-              </Link>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+            </div>
+            
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
 
 export default AdminDashboard;
+
+export const categories = [
+  {
+    id: 1,
+    categoryName: 'Usuarios',
+    path: '/users',
+  },
+  {
+    id: 1,
+    categoryName: 'Personajes',
+    path: '/characters',
+  },
+  {
+    id: 1,
+    categoryName: 'Armas',
+    path: '/weapons',
+  },
+];

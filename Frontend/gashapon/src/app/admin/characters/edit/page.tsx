@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default function CreateCharacter() {
+export default function UpdateCharacter() {
   const [formData, setFormData] = useState({
     name: '',
     element: '',
@@ -66,29 +66,5 @@ export default function CreateCharacter() {
         </form>
       </div>
     </div>
-    /*
-    <div>
-      <h1>Crear Personaje</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="name">Nombre:</label>
-          <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
-        </div>
-        <div>
-          <label htmlFor="element">Elemento:</label>
-          <input type="text" id="element" name="element" value={formData.element} onChange={handleChange} required />
-        </div>
-        <div>
-          <label htmlFor="rarity">Rareza:</label>
-          <input type="number" id="rarity" name="rarity" value={formData.rarity} onChange={handleChange} required />
-        </div>
-        <div>
-          <label htmlFor="img">URL de la imagen:</label>
-          <input type="url" id="img" name="img" value={formData.img} onChange={handleChange} required />
-        </div>
-        <button type="submit">Crear Personaje</button>
-      </form>
-    </div>
-    */
   );
 }

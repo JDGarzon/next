@@ -4,12 +4,13 @@ import { useRouter } from "next/navigation";
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default function CreateCharacter() {
+
+
+export default function CreateUser() {
   const [formData, setFormData] = useState({
     name: '',
-    element: '',
-    rarity: '',
-    img: ''
+    email: '',
+    password: '',
   });
 
   const router = useRouter();
@@ -21,8 +22,8 @@ export default function CreateCharacter() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      console.log('Formulario enviado:', {...formData, "constellation":0,level: 90});
-      router.push('/admin/characters');
+      console.log('Formulario enviado:', {...formData});
+      router.push('/admin/users');
     } catch (error) {
       console.error('Error al enviar el formulario:', error);
     }
@@ -37,9 +38,9 @@ export default function CreateCharacter() {
       </div>
       <div className="table-container">
         <div className="table-header">
-          <h2> Nuevo Personaje</h2>
+          <h2> Nuevo Usuario</h2>
           <div>
-            <Link href={`/admin/characters`} className="table-header-btn">
+            <Link href={`/admin/users`} className="table-header-btn">
               <Image className="table-option-btn" src={"/icons/return.png"} alt={"Return Icon"} width={40} height={40} />
               <p>Regresar</p>
             </Link>
@@ -48,24 +49,21 @@ export default function CreateCharacter() {
         <form className="character-form" onSubmit={handleSubmit}>
           <div className='character-form-element'>
             <label className='character-form-label' htmlFor="name">Nombre:</label>
-            <input className='character-form-input' placeholder='Ingrese el nombre del personaje' type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
+            <input className='character-form-input' placeholder='Ingrese el nombre del usuario' type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
           </div>
           <div className='character-form-element'>
-            <label className='character-form-label' htmlFor="element">Elemento:</label>
-            <input className='character-form-input' placeholder='Ingrese el elemento del personaje' type="text" id="element" name="element"  value={formData.element} onChange={handleChange} required />
+            <label className='character-form-label' htmlFor="email">Email:</label>
+            <input className='character-form-input' placeholder='Ingrese el email del usuario' type="text" id="email" name="email" value={formData.email} onChange={handleChange} required />
           </div>
           <div className='character-form-element'>
-            <label className='character-form-label' htmlFor="rarity">Rareza:</label>
-            <input className='character-form-input' placeholder='Ingrese el valor de rareza del personaje (1 a 5)' type="number" id="rarity" name="rarity" value={formData.rarity} onChange={handleChange} required min="1" max="5"/>
+            <label className='character-form-label' htmlFor="password">Contraseña:</label>
+            <input className='character-form-input' placeholder='Ingrese la contraseña del usuario' type="text" id="password" name="password" value={formData.password} onChange={handleChange} required />
           </div>
-          <div className='character-form-element'>
-            <label className='character-form-label' htmlFor="img">URL de la imagen:</label>
-            <input className='character-form-input' placeholder='Ingrese la imagen del personaje' type="url" id="img" name="img" value={formData.img} onChange={handleChange} required />
-          </div>
-          <button className='submit-btn' type="submit">Crear Personaje</button>
+          <button className='submit-btn' type="submit">Crear Usuario</button>
         </form>
       </div>
     </div>
+
     /*
     <div>
       <h1>Crear Personaje</h1>
@@ -89,6 +87,7 @@ export default function CreateCharacter() {
         <button type="submit">Crear Personaje</button>
       </form>
     </div>
+
     */
   );
 }

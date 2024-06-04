@@ -63,7 +63,7 @@ const LoginPage = () => {
               Play!
             </button>
             <button type="button" className="btn btn-secondary" onClick={()=>{router.push("/sign/register");}}>
-              Sign in
+              Sign up
             </button>
           </div>
         </form>

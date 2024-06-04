@@ -6,9 +6,9 @@ import Image from 'next/image';
 const UsersList = () => {
 
   const users = [
-    { id: 1,email:"c", name: 'User 1' },
-    { id: 2,email:"c", name: 'User 2' },
-    { id: 3,email:"c", name: 'User 3' },
+    { id: 1,email:"something@email.com", name: 'User 1' },
+    { id: 2,email:"something@email.com", name: 'User 2' },
+    { id: 3,email:"something@email.com", name: 'User 3' },
 
   ];
 
@@ -17,6 +17,47 @@ const UsersList = () => {
   }
 
   return (
+
+    <div className="admin-container">
+      <div className="admin-dashboard-header">
+        <h1 className="dashboard-title">Admin Dashboard</h1>
+        <Link href={`/sign/login`} className="sign-out-btn">Sign out</Link>
+      </div>
+      <div className="table-container">
+        <div className="table-header">
+          <h2>Usuarios</h2>
+          <div>
+            <Link href={`/admin`} className="table-header-btn">
+              <Image className="table-option-btn" src={"/icons/return.png"} alt={"Return Icon"} width={40} height={40} />
+              <p>Regresar</p>
+            </Link>
+            <Link href={`/admin/users/new`} className="table-header-btn">
+              <Image className="table-option-btn" src={"/icons/plus.png"} alt={"Plus Icon"} width={40} height={40} />
+              <p>Nuevo</p>
+            </Link>
+          </div>
+        </div>
+        {users.map((element, index) => (
+          <div key={index} className="table-element">
+            <h3 className="table-element-name">{element.name}</h3>
+            <h3 className="table-element-name">{element.email}</h3>
+            <div className="table-btns">
+              <Link href={`/admin/users/${element.id}/edit`} className="table-btn"> 
+                <Image className="table-option-btn" src={"/icons/edit.png"} alt={"Edit Icon"} width={40} height={40} />
+                <p>Editar</p>
+              </Link>
+              <Link href="" className="table-btn"> 
+                <Image className="table-option-btn" src={"/icons/trash.png"} alt={"Delete Icon"} width={40} height={40} />
+                <p>Borrar</p>
+              </Link>
+            </div>
+            
+          </div>
+        ))}
+      </div>
+    </div>
+
+    /*
     
     <div className={"container-table"}>
      <h1>Users List</h1>
@@ -55,6 +96,8 @@ const UsersList = () => {
         </tbody>
       </table>
     </div>
+
+    */
   );
 };
 
