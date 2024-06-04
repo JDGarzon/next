@@ -43,7 +43,7 @@ body {
 }
 
 .game-body{
-  background-image: url(/img/bannerBackground.jpg);
+  background-image: url(/img/bannerBackground.jpg) !important;
 }
 
 .game-nav{
@@ -316,8 +316,6 @@ body {
   background-image: url(/icons/next-active.png);
 }
 
-/*
-
 body, html {
   height: 100%;
   margin: 0;
@@ -326,7 +324,6 @@ body, html {
   background-size: cover;
 }
 
-*/
 
 .login-container {
   display: flex;

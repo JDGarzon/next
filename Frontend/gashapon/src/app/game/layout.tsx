@@ -20,8 +20,7 @@ export default function RootLayout({
       <body className={`${inter.className} game-body`}>
         
         <User/>
-        
-          {children}  
+        {children}  
       </body>
     </html>
       

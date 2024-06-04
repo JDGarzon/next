@@ -2,19 +2,54 @@
 import Link from 'next/link';
 import "../../globals.css"
 import Image from 'next/image';
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from 'react';
+import { useRouter } from "next/navigation";
 
-const UsersList = () => {
+const CharactersList = () => {
+  const [characters, setCharacters] = useState([
+    {
+      _id:'',
+      name:'',
+      element:'',
+      rarity:0,
+      img:'',
+    }
+  ])
+  const { data: session, status } = useSession();
+  const router = useRouter();
 
-  const characters = [
-    { id: 1,element:"CRYO", name: 'Shenhe', rarity:"5", img:"imageUrl"},
-    { id: 1,element:"CRYO", name: 'Shenhe', rarity:"5", img:"imageUrl"},
-    { id: 1,element:"CRYO", name: 'Shenhe', rarity:"5", img:"imageUrl"},
+  useEffect(() => {
+    if (session && status === "authenticated") {
+      fetchCharacters();
+    }
+  }, [session, status]);
 
-  ];
+  const fetchCharacters = async () => {
+    try {
+      // Simula una llamada a una API
+      console.log(session?.user?.username)
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/character`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${session?.user?.token}`,
+        },
+      });
+      const resD = await res.json();
+      setCharacters(resD);
+    } catch (error) {
+      console.error('Error fetching characters:', error);
+    }
+  };
 
   const handleDelete =  async(id:number)=>{
     console.log("delete")
   }
+
+  const handleEdit=async(id:String)=>{
+    router.push(`/admin/characters/[id]?id=${id}`);
+}
 
   return (
 
@@ -44,7 +79,7 @@ const UsersList = () => {
             <h3>{element.rarity}</h3>
             <h3 className='last-text'>{element.img}</h3>
             <div className="table-btns">
-              <Link href={`/admin/character/${element.id}/edit`} className="table-btn"> 
+              <Link href={`/admin/characters/[id]?id=${element._id}`} className="table-btn"> 
                 <Image className="table-option-btn" src={"/icons/edit.png"} alt={"Edit Icon"} width={40} height={40} />
                 <p>Editar</p>
               </Link>
@@ -103,4 +138,4 @@ const UsersList = () => {
   );
 };
 
-export default UsersList;
+export default CharactersList;

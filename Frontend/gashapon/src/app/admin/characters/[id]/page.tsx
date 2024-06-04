@@ -1,18 +1,50 @@
 "use client"
-import { useState } from 'react';
-import { useRouter } from "next/navigation";
+import { useEffect, useState } from 'react';
+import { useRouter,useSearchParams } from "next/navigation";
+import { useSession } from "next-auth/react";
+
 import Image from 'next/image';
 import Link from 'next/link';
 
 export default function UpdateCharacter() {
   const [formData, setFormData] = useState({
+    _id:'',
     name: '',
     element: '',
     rarity: '',
     img: ''
   });
+  const [errors, setErrors] = useState<string[]>([]);
+  const search = useSearchParams ();
+  const { data: session, status } = useSession();
+
+  const id=search.get("id")  
 
   const router = useRouter();
+
+  useEffect(() => {
+    if (session && status === "authenticated") {
+      fetchCharacters();
+    }
+  }, [session, status]);
+
+  const fetchCharacters = async () => {
+    try {
+      // Simula una llamada a una API
+      console.log(session?.user?.username)
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/character/${id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${session?.user?.token}`,
+        },
+      });
+      const resD = await res.json();
+      setFormData(resD);
+    } catch (error) {
+      console.error('Error fetching characters:', error);
+    }
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -20,8 +52,26 @@ export default function UpdateCharacter() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setErrors([]);
     try {
-      console.log('Formulario enviado:', {...formData, "constellation":0,level: 90});
+      const res2 = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/character/${formData._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${session?.user?.token}`,
+        },
+        body:JSON.stringify({
+            formData
+          }),
+      });
+
+      const responseAPI = await res2.json();
+
+      if (!res2.ok) {
+        setErrors(responseAPI.message);
+        return;
+      }
+  
       router.push('/admin/characters');
     } catch (error) {
       console.error('Error al enviar el formulario:', error);
@@ -64,6 +114,15 @@ export default function UpdateCharacter() {
           </div>
           <button className='submit-btn' type="submit">Crear Personaje</button>
         </form>
+        {errors.length > 0 && (
+          <div className="alert alert-danger mt-2">
+            <ul className="mb-0">
+              {errors.map((error) => (
+                <li key={error}>{error}</li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );
