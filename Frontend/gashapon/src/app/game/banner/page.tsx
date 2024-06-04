@@ -35,6 +35,28 @@ export default function Banner(){
 
     const fetch10Wishes=async()=>{
         try {
+            const resuser = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/${session?.user?.username}`, {
+                method: "GET",
+                headers: {
+                  "Content-Type": "application/json",
+                  authorization: `Bearer ${session?.user?.token}`,
+                },
+            });
+            const datauser = await resuser.json();
+            console.log(datauser)
+
+            const updatedUser = { ...datauser, wishes: datauser.wishes - 10 };
+
+            const res2 = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/self`, {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json",
+                  authorization: `Bearer ${session?.user?.token}`,
+                },
+                body: JSON.stringify(updatedUser),
+            });
+
+
             const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/gacha/character10`, {
             method: "GET",
             headers: {
@@ -59,6 +81,28 @@ export default function Banner(){
 
     const fetch1Wishes=async()=>{
         try {
+
+            const resuser = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/${session?.user?.username}`, {
+                method: "GET",
+                headers: {
+                  "Content-Type": "application/json",
+                  authorization: `Bearer ${session?.user?.token}`,
+                },
+            });
+            const datauser = await resuser.json();
+            console.log(datauser)
+
+            const updatedUser = { ...datauser, wishes: datauser.wishes - 1 };
+
+            const res2 = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/self`, {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json",
+                  authorization: `Bearer ${session?.user?.token}`,
+                },
+                body: JSON.stringify(updatedUser),
+            });
+
             const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/gacha/character1`, {
             method: "GET",
             headers: {
