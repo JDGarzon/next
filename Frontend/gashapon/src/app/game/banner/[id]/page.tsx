@@ -26,6 +26,11 @@ export default function Page() {
     }else char.forEach((character) => {console.log(character),characters.push(character[0])})
   }
   
-  return <CharactersWish characters={characters}></CharactersWish>
+  return(
+    <div className='wish-container'>
+      <CharactersWish characters={characters}></CharactersWish>
+
+    </div>
+  ) 
 }
 

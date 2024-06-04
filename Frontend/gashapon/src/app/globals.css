@@ -316,6 +316,7 @@ body {
   background-image: url(/icons/next-active.png);
 }
 
+/*
 body, html {
   height: 100%;
   margin: 0;
@@ -323,7 +324,7 @@ body, html {
   background: url(/img/bannerBackground.jpg) no-repeat center center fixed;
   background-size: cover;
 }
-
+*/
 
 .login-container {
   display: flex;
@@ -485,9 +486,93 @@ body, html {
   margin: 0;
 }
 
+.wish-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.almanac-header{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+
+  margin: .5rem 0 2rem 0;
+
+}
+
+.almanac-return-btn{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--black);
+  background-color: var(--black);
+  width: 13rem;
+  height: 4rem;
+  border-radius: 5%;
+}
+
+.almanac-return-btn:hover{
+  transform: scale(1.1);
+}
+
+.almanac-return-image{
+  width: 4rem;
+  height: 4rem;
+}
+
+.almanac-return-btn p{
+  color: var(--white);
+  font-size: 1.8rem;
+  font-weight: 500;
+  font-family: var(--text-font);
+  margin-left: .5rem;
+}
+
+.almanac-change-category-btns{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.almanac-change-category-btn-active,
+.almanac-change-category-btn{
+  border-radius: 0 0.5rem 0.5rem 0;
+  background-color: rgba(255, 255, 255,0.7);
+  border: 2px solid var(--black);
+  color: var(--black);
+  font-family: var(--text-font);
+  font-size: 1.8rem;
+  font-weight: 500;
+  height: 3.5rem;
+  width: 10rem;
+}
+
+.almanac-change-category-btn-active{
+  border-radius: 0.5rem 0 0 0.5rem;
+  color: var(--white);
+  background-color: var(--black);
+
+}
+
 .containerCharacter {
   padding: 20px;
   text-align: center;
+  background-color: rgba(225, 225, 225, 0.7);
+  width: 90%;
+  border-radius: 2%;
+
+}
+
+.containerCharacter h1{
+  font-family: var(--text-font);
+  color: var(--black);
+  font-size: 3.2rem;
+  font-weight: 500;
+
 }
 
 .charactersGrid {
@@ -510,6 +595,10 @@ body, html {
 
 .characterImage {
   border-radius: 50%;
+  object-fit: contain;
+  object-position: center;
+  width: 12rem;
+  height: 11rem;
 }
 
 .characterName {
