@@ -741,3 +741,21 @@ table-nonuser-element .last-text{
   justify-self: center;
   padding: 0.1rem 2rem;
 }
+
+.alert {
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 5px;
+  position: relative;
+  transition: opacity 0.3s ease;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.alert-error {
+  background-color: #f8d7da;
+  color: #721c24;
+}

@@ -2,18 +2,53 @@
 import Link from 'next/link';
 import "../../globals.css"
 import Image from 'next/image';
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from 'react';
 
 const UsersList = () => {
+  const { data: session, status } = useSession();
+  const[users,setUsers]=useState([{
+    "_id":'',
+    "email": '',
+    "username": '',
+    "level":"",
+    "rol": ''
+  }])
 
-  const users = [
-    { id: 1,email:"something@email.com", name: 'User 1' },
-    { id: 2,email:"something@email.com", name: 'User 2' },
-    { id: 3,email:"something@email.com", name: 'User 3' },
 
-  ];
+  useEffect(() => {
+    if (session && status === "authenticated") {
+      fetchUsers();
+    }
+  }, [session, status,users]);
 
-  const handleDelete =  async(id:number)=>{
-    console.log("delete")
+  const fetchUsers=async ()=>{
+    try {
+      // Simula una llamada a una API
+      console.log(session?.user?.username)
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${session?.user?.token}`,
+        },
+      });
+      const resD = await res.json();
+      setUsers(resD);
+    } catch (error) {
+      console.error('Error fetching users:', error);
+    }
+  }
+
+
+  const handleDelete =  async(id:string)=>{
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/${id}`, {
+      method: 'DELETE',
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${session?.user?.token}`,
+      },
+    });
   }
 
   return (
@@ -39,17 +74,17 @@ const UsersList = () => {
         </div>
         {users.map((element, index) => (
           <div key={index} className="table-element">
-            <h3 className="table-element-name">{element.name}</h3>
+            <h3 className="table-element-name">{element.username}</h3>
             <h3 className="table-element-name">{element.email}</h3>
             <div className="table-btns">
-              <Link href={`/admin/users/${element.id}/edit`} className="table-btn"> 
+              <Link href={`/admin/users/[id]?id=${element.username}`} className="table-btn"> 
                 <Image className="table-option-btn" src={"/icons/edit.png"} alt={"Edit Icon"} width={40} height={40} />
                 <p>Editar</p>
               </Link>
-              <Link href="" className="table-btn"> 
+              <button className="table-btn" onClick={()=>{handleDelete(element._id)}}> 
                 <Image className="table-option-btn" src={"/icons/trash.png"} alt={"Delete Icon"} width={40} height={40} />
                 <p>Borrar</p>
-              </Link>
+              </button>
             </div>
             
           </div>

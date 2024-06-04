@@ -23,7 +23,7 @@ const CharactersList = () => {
     if (session && status === "authenticated") {
       fetchCharacters();
     }
-  }, [session, status]);
+  }, [session, status,characters]);
 
   const fetchCharacters = async () => {
     try {
@@ -43,8 +43,15 @@ const CharactersList = () => {
     }
   };
 
-  const handleDelete =  async(id:number)=>{
-    console.log("delete")
+  const handleDelete =  async(id:string)=>{
+    console.log(id)
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/character/${id}`, {
+      method: 'DELETE',
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${session?.user?.token}`,
+      },
+    });
   }
 
   const handleEdit=async(id:String)=>{
@@ -83,10 +90,10 @@ const CharactersList = () => {
                 <Image className="table-option-btn" src={"/icons/edit.png"} alt={"Edit Icon"} width={40} height={40} />
                 <p>Editar</p>
               </Link>
-              <Link href="" className="table-btn"> 
+              <button  className="table-btn" onClick={()=>{handleDelete(element._id)}}> 
                 <Image className="table-option-btn" src={"/icons/trash.png"} alt={"Delete Icon"} width={40} height={40} />
                 <p>Borrar</p>
-              </Link>
+              </button>
             </div>
             
           </div>

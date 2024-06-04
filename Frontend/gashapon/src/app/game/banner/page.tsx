@@ -5,10 +5,12 @@ import { BannerElements } from "@/utils/BannerConstants";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import Alert from '@/components/Alert';
 
 export default function Banner(){
     const { data: session, status } = useSession();
     const [activeBanner, setActiveBanner] = useState(0);
+    const [alert, setAlert] = useState({ message: '', type: '' });
     const router = useRouter();
   
     if (status === "loading") {
@@ -33,31 +35,50 @@ export default function Banner(){
     }
 
     const fetch10Wishes=async()=>{
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/gacha/character10`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-            authorization: `Bearer ${session?.user?.token}`,
-        },
-        });
-        const data = await res.json();
-        console.log(data)
-        const queryString = new URLSearchParams({ characters: JSON.stringify(data) }).toString();
-        router.push(`/game/banner/[id]?id=${queryString}`);
+        try {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/gacha/character10`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                authorization: `Bearer ${session?.user?.token}`,
+            },
+            });
+            const data = await res.json();
+            console.log(data)
+            if(data.statusCode==404){
+                throw new Error
+            }
+            const queryString = new URLSearchParams({ characters: JSON.stringify(data) }).toString();
+            router.push(`/game/banner/[id]?id=${queryString}`);
+        } catch (error) {
+            setAlert({ message: "Faltan deseos", type: 'error' });
+            console.log(error)
+            return <Alert message={alert.message} type={alert.type} />
+        }
+        
     }
 
     const fetch1Wishes=async()=>{
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/gacha/character1`, {
+        try {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/gacha/character1`, {
             method: "GET",
             headers: {
-              "Content-Type": "application/json",
-              authorization: `Bearer ${session?.user?.token}`,
+                "Content-Type": "application/json",
+                authorization: `Bearer ${session?.user?.token}`,
             },
-          });
-          const data = await res.json();
-          console.log(data)
-          const queryString = new URLSearchParams({ characters: JSON.stringify(data) }).toString();
-        router.push(`/game/banner/[id]?id=${queryString}`);
+            });
+            const data = await res.json();
+            if(data.statusCode==404){
+                throw new Error
+            }
+            const queryString = new URLSearchParams({ characters: JSON.stringify(data) }).toString();
+            router.push(`/game/banner/[id]?id=${queryString}`);
+        } catch (error) {
+            setAlert({ message: "Faltan deseos", type: 'error' });
+            console.log(error)
+            return <Alert message={alert.message} type={alert.type} />
+        }
+       
     }
 
     return (

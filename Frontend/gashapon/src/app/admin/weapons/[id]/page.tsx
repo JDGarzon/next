@@ -8,11 +8,13 @@ import Link from 'next/link';
 
 export default function UpdateCharacter() {
   const [formData, setFormData] = useState({
-    _id:'',
-    name: '',
-    element: '',
-    rarity: '',
-    img: ''
+    "_id":'',
+    "name": '',
+    "subStats": '',
+    "effect": '',
+    "type": '',
+    "rarity": '',
+    "img": ''
   });
   const [errors, setErrors] = useState<string[]>([]);
   const search = useSearchParams ();
@@ -32,7 +34,7 @@ export default function UpdateCharacter() {
     try {
       // Simula una llamada a una API
       console.log(session?.user?.username)
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/character/${id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/weapon/${id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -54,17 +56,19 @@ export default function UpdateCharacter() {
     e.preventDefault();
     setErrors([]);
     try {
-      const res2 = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/character/${formData._id}`, {
+      const res2 = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/weapon/${formData._id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
           authorization: `Bearer ${session?.user?.token}`,
         },
         body:JSON.stringify({
-          name: formData.name,
-          element: formData.element,
-          rarity: formData.rarity,
-          img: formData.img
+          "name": formData.name,
+          "subStats": formData.subStats,
+          "effect": formData.effect,
+          "type": formData.type,
+          "rarity": formData.rarity,
+          "img": formData.img,
           }),
       });
 
@@ -75,7 +79,7 @@ export default function UpdateCharacter() {
         return;
       }
   
-      router.push('/admin/characters');
+      router.push('/admin/weapons');
     } catch (error) {
       console.error('Error al enviar el formulario:', error);
     }
@@ -92,7 +96,7 @@ export default function UpdateCharacter() {
         <div className="table-header">
           <h2> Nuevo Personaje</h2>
           <div>
-            <Link href={`/admin/characters`} className="table-header-btn">
+            <Link href={`/admin/weapons`} className="table-header-btn">
               <Image className="table-option-btn" src={"/icons/return.png"} alt={"Return Icon"} width={40} height={40} />
               <p>Regresar</p>
             </Link>
@@ -104,8 +108,16 @@ export default function UpdateCharacter() {
             <input className='character-form-input' placeholder='Ingrese el nombre del personaje' type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
           </div>
           <div className='character-form-element'>
-            <label className='character-form-label' htmlFor="element">Elemento:</label>
-            <input className='character-form-input' placeholder='Ingrese el elemento del personaje' type="text" id="element" name="element"  value={formData.element} onChange={handleChange} required />
+            <label className='character-form-label' htmlFor="subStat">Substat:</label>
+            <input className='character-form-input' placeholder='Ingrese el elemento del personaje' type="text" id="subStat" name="subStat"  value={formData.subStats} onChange={handleChange} required />
+          </div>
+          <div className='character-form-element'>
+            <label className='character-form-label' htmlFor="effect">Efecto:</label>
+            <input className='character-form-input' placeholder='Ingrese el nombre del personaje' type="text" id="effect" name="effect" value={formData.effect} onChange={handleChange} required />
+          </div>
+          <div className='character-form-element'>
+            <label className='character-form-label' htmlFor="type">Tipo:</label>
+            <input className='character-form-input' placeholder='Ingrese el elemento del personaje' type="text" id="type" name="type"  value={formData.type} onChange={handleChange} required />
           </div>
           <div className='character-form-element'>
             <label className='character-form-label' htmlFor="rarity">Rareza:</label>

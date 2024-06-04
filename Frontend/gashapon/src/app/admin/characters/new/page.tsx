@@ -1,16 +1,25 @@
 "use client"
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 import Image from 'next/image';
 import Link from 'next/link';
 
 export default function CreateCharacter() {
+  const { data: session, status } = useSession();
   const [formData, setFormData] = useState({
     name: '',
     element: '',
-    rarity: '',
-    img: ''
+    rarity: 0,
+    img: '',
+    weapon:""
   });
+
+  useEffect(() => {
+    if (session && status === "authenticated") {
+
+    }
+  }, [session, status]);
 
   const router = useRouter();
 
@@ -21,7 +30,36 @@ export default function CreateCharacter() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      console.log('Formulario enviado:', {...formData, "constellation":0,level: 90});
+      console.log({
+        "name":formData.name,
+        "element":formData.element,
+        "weapon":formData.weapon,
+        "rarity":formData.rarity,
+        "constellation":0,
+        "level":90,
+        "img":formData.img
+        })
+      const res2 = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/character`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${session?.user?.token}`,
+        },
+        body:JSON.stringify({
+          "constellation":0,
+          "element":formData.element,
+          "img":formData.img,
+          "level":90,
+          "name":formData.name,
+          "rarity":Number(formData.rarity),
+          "weapon":formData.weapon
+          }),
+      });
+
+      const re=await res2.json
+
+      console.log(re)
+
       router.push('/admin/characters');
     } catch (error) {
       console.error('Error al enviar el formulario:', error);
@@ -55,6 +93,10 @@ export default function CreateCharacter() {
             <input className='character-form-input' placeholder='Ingrese el elemento del personaje' type="text" id="element" name="element"  value={formData.element} onChange={handleChange} required />
           </div>
           <div className='character-form-element'>
+            <label className='character-form-label' htmlFor="weapon">Arma:</label>
+            <input className='character-form-input' placeholder='Ingrese el elemento del personaje' type="text" id="weapon" name="weapon"  value={formData.weapon} onChange={handleChange} required />
+          </div>
+          <div className='character-form-element'>
             <label className='character-form-label' htmlFor="rarity">Rareza:</label>
             <input className='character-form-input' placeholder='Ingrese el valor de rareza del personaje (1 a 5)' type="number" id="rarity" name="rarity" value={formData.rarity} onChange={handleChange} required min="1" max="5"/>
           </div>
@@ -62,6 +104,7 @@ export default function CreateCharacter() {
             <label className='character-form-label' htmlFor="img">URL de la imagen:</label>
             <input className='character-form-input' placeholder='Ingrese la imagen del personaje' type="url" id="img" name="img" value={formData.img} onChange={handleChange} required />
           </div>
+          
           <button className='submit-btn' type="submit">Crear Personaje</button>
         </form>
       </div>

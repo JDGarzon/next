@@ -6,13 +6,13 @@ import { useSession } from "next-auth/react";
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default function UpdateCharacter() {
+export default function UpdateUser() {
   const [formData, setFormData] = useState({
     _id:'',
-    name: '',
-    element: '',
-    rarity: '',
-    img: ''
+    email: '',
+    username: '',
+    level:"",
+    rol: ''
   });
   const [errors, setErrors] = useState<string[]>([]);
   const search = useSearchParams ();
@@ -30,9 +30,9 @@ export default function UpdateCharacter() {
 
   const fetchCharacters = async () => {
     try {
-      // Simula una llamada a una API
-      console.log(session?.user?.username)
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/character/${id}`, {
+
+      console.log(id)
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/${id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -40,6 +40,7 @@ export default function UpdateCharacter() {
         },
       });
       const resD = await res.json();
+      console.log(resD)
       setFormData(resD);
     } catch (error) {
       console.error('Error fetching characters:', error);
@@ -54,17 +55,15 @@ export default function UpdateCharacter() {
     e.preventDefault();
     setErrors([]);
     try {
-      const res2 = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/character/${formData._id}`, {
+      const res2 = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/${formData._id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
           authorization: `Bearer ${session?.user?.token}`,
         },
         body:JSON.stringify({
-          name: formData.name,
-          element: formData.element,
-          rarity: formData.rarity,
-          img: formData.img
+          "level":formData.level,
+          "rol":formData.rol
           }),
       });
 
@@ -75,7 +74,7 @@ export default function UpdateCharacter() {
         return;
       }
   
-      router.push('/admin/characters');
+      router.push('/admin/users');
     } catch (error) {
       console.error('Error al enviar el formulario:', error);
     }
@@ -92,7 +91,7 @@ export default function UpdateCharacter() {
         <div className="table-header">
           <h2> Nuevo Personaje</h2>
           <div>
-            <Link href={`/admin/characters`} className="table-header-btn">
+            <Link href={`/admin/users`} className="table-header-btn">
               <Image className="table-option-btn" src={"/icons/return.png"} alt={"Return Icon"} width={40} height={40} />
               <p>Regresar</p>
             </Link>
@@ -100,32 +99,23 @@ export default function UpdateCharacter() {
         </div>
         <form className="character-form" onSubmit={handleSubmit}>
           <div className='character-form-element'>
-            <label className='character-form-label' htmlFor="name">Nombre:</label>
-            <input className='character-form-input' placeholder='Ingrese el nombre del personaje' type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
+            <label className='character-form-label' htmlFor="name">Nombre de usuario:</label>
+            <input className='character-form-input' placeholder='Ingrese el nombre del personaje' type="text" id="username" name="username" value={formData.username} onChange={handleChange} required />
           </div>
           <div className='character-form-element'>
-            <label className='character-form-label' htmlFor="element">Elemento:</label>
-            <input className='character-form-input' placeholder='Ingrese el elemento del personaje' type="text" id="element" name="element"  value={formData.element} onChange={handleChange} required />
+            <label className='character-form-label' htmlFor="element">Email:</label>
+            <input className='character-form-input' placeholder='Ingrese el elemento del personaje' type="email" id="email" name="email"  value={formData.email} onChange={handleChange} required />
           </div>
           <div className='character-form-element'>
-            <label className='character-form-label' htmlFor="rarity">Rareza:</label>
-            <input className='character-form-input' placeholder='Ingrese el valor de rareza del personaje (1 a 5)' type="number" id="rarity" name="rarity" value={formData.rarity} onChange={handleChange} required min="1" max="5"/>
+            <label className='character-form-label' htmlFor="rarity">Nivel:</label>
+            <input className='character-form-input' placeholder='Nivel del usuario' type="number" id="level" name="level" value={formData.level} onChange={handleChange} required min="1" max="5"/>
           </div>
           <div className='character-form-element'>
-            <label className='character-form-label' htmlFor="img">URL de la imagen:</label>
-            <input className='character-form-input' placeholder='Ingrese la imagen del personaje' type="url" id="img" name="img" value={formData.img} onChange={handleChange} required />
+            <label className='character-form-label' htmlFor="element">Rol:</label>
+            <input className='character-form-input' placeholder='Ingrese el elemento del personaje' type="text" id="rol" name="rol"  value={formData.rol} onChange={handleChange} required />
           </div>
           <button className='submit-btn' type="submit">Crear Personaje</button>
         </form>
-        {errors.length > 0 && (
-          <div className="alert alert-danger mt-2">
-            <ul className="mb-0">
-              {errors.map((error) => (
-                <li key={error}>{error}</li>
-              ))}
-            </ul>
-          </div>
-        )}
       </div>
     </div>
   );
