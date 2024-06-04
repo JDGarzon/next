@@ -26,7 +26,7 @@ const LoginPage = () => {
       return;
     }
 
-    router.push("/dashboard");
+    router.push("/game/banner");
   };
 
   return (
