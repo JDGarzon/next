@@ -22,9 +22,11 @@ const handler = NextAuth({
           }
         );
         const user = await res.json();
+        console.log("user:********************");
+        
         console.log(user);
-
-        if (user.error) throw user;
+        console.log("user:********************");
+        if (user.statusCode) throw user;
 
         return user;
       },
@@ -40,7 +42,7 @@ const handler = NextAuth({
     },
   },
   pages: {
-    signIn: "/login",
+    signIn: "/sign/login",
   },
 });
 

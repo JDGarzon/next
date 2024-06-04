@@ -20,7 +20,11 @@ const LoginPage = () => {
       password,
       redirect: false,
     });
+    console.log("*****************")
     console.log(responseNextAuth?.status)
+    console.log(responseNextAuth?.error)
+    console.log("*****************")
+
     if (responseNextAuth?.error) {
       setErrors(responseNextAuth.error.split(","));
       return;
