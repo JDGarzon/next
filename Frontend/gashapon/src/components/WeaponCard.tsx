@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import "../app/globals.css";
 
-const WeaponCard = ({ weapon }) => {
+const WeaponCard = ({ weapon }:any) => {
   return (
     <div className="card">
       <Image src={weapon.img} alt={weapon.name} width={100} height={100} className="characterImage" />

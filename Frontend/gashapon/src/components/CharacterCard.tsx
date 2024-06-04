@@ -3,7 +3,7 @@ import "../app/globals.css";
 
 
 
-const CharacterCard = ({ character}) => {
+const CharacterCard = ({ character}:any) => {
   
   console.log(character)
   return (

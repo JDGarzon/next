@@ -9,7 +9,7 @@ export async function middleware(request: NextRequest) {
   const token = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET });
 
   // Define las rutas protegidas
-  const protectedRoutes = ['/dashboard', '/game', '/admin'];
+  const protectedRoutes = ['/', '/game', '/admin'];
 
   if (protectedRoutes.some((path) => url.pathname.startsWith(path))) {
     // Si el usuario no está autenticado, redirígelo a la página de inicio de sesión

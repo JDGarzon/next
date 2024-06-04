@@ -3,6 +3,24 @@ import Image from 'next/image';
 import "../globals.css";
 
 const AdminDashboard = () => {
+  const categories = [
+    {
+      id: 1,
+      categoryName: 'Usuarios',
+      path: '/users',
+    },
+    {
+      id: 1,
+      categoryName: 'Personajes',
+      path: '/characters',
+    },
+    {
+      id: 1,
+      categoryName: 'Armas',
+      path: '/weapons',
+    },
+  ];
+
   return (
     <div className="admin-container">
       <div className="admin-dashboard-header">
@@ -31,21 +49,3 @@ const AdminDashboard = () => {
 };
 
 export default AdminDashboard;
-
-export const categories = [
-  {
-    id: 1,
-    categoryName: 'Usuarios',
-    path: '/users',
-  },
-  {
-    id: 1,
-    categoryName: 'Personajes',
-    path: '/characters',
-  },
-  {
-    id: 1,
-    categoryName: 'Armas',
-    path: '/weapons',
-  },
-];

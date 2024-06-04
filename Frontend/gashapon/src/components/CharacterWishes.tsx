@@ -6,7 +6,7 @@ import { useEffect ,useState} from "react";
 import Link from 'next/link';
 import Image from 'next/image';
 
-export default function CharactersWish({characters}) {
+export default function CharactersWish({characters}:any) {
   const { data: session, status } = useSession();
   
 
@@ -31,7 +31,7 @@ export default function CharactersWish({characters}) {
       </div>
       
       <div className="charactersGrid">
-        {characters.map((character, index) => (
+        {characters.map((character:any, index:any) => (
           <CharacterCard key={index} character={character} />
         ))}
       </div>
