@@ -38,7 +38,7 @@ const LoginPage = () => {
           <h1 className="login-title">Gachapon</h1>
           <img className="icon" src="/img/wish.webp" alt="wish" width={60} height={60} />
         </div>
-        <p className="login-subtitle">Start the adventure. Let's make a wish</p>
+        <p className="login-subtitle">Start the adventure. Lets make a wish</p>
         <form onSubmit={handleSubmit} className="login-form">
           <label className="form-label">Username</label>
           <input

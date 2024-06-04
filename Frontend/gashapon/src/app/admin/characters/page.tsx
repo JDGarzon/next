@@ -19,29 +19,33 @@ const CharactersList = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
 
+ 
   useEffect(() => {
+    const fetchCharacters = async () => {
+      try {
+        // Simula una llamada a una API
+        console.log(session?.user?.username)
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/character`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${session?.user?.token}`,
+          },
+        });
+        const resD = await res.json();
+        setCharacters(resD);
+      } catch (error) {
+        console.error('Error fetching characters:', error);
+      }
+    };
+  
     if (session && status === "authenticated") {
       fetchCharacters();
     }
   }, [session, status,characters]);
+  
 
-  const fetchCharacters = async () => {
-    try {
-      // Simula una llamada a una API
-      console.log(session?.user?.username)
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/character`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${session?.user?.token}`,
-        },
-      });
-      const resD = await res.json();
-      setCharacters(resD);
-    } catch (error) {
-      console.error('Error fetching characters:', error);
-    }
-  };
+ 
 
   const handleDelete =  async(id:string)=>{
     console.log(id)

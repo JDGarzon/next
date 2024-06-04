@@ -9,4 +9,5 @@ declare module "next-auth" {
       wishes:[];
     };
   }
+  
 }

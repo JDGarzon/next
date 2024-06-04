@@ -14,7 +14,11 @@ export default function User(){
     const router = useRouter();
     const [errors, setErrors] = useState<string[]>([]);
 
-    const fetchUser=async ()=>{
+
+   
+  
+    useEffect(() => {
+      const fetchUser=async ()=>{
         const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/${session?.user?.username}`, {
             method: "GET",
             headers: {
@@ -26,8 +30,6 @@ export default function User(){
           console.log(data)
           setUser(data);
     }
-  
-    useEffect(() => {
       if (session && status === "authenticated") {
         fetchUser();
       }

@@ -17,28 +17,29 @@ const UsersList = () => {
 
 
   useEffect(() => {
+    const fetchUsers=async ()=>{
+      try {
+        // Simula una llamada a una API
+        console.log(session?.user?.username)
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${session?.user?.token}`,
+          },
+        });
+        const resD = await res.json();
+        setUsers(resD);
+      } catch (error) {
+        console.error('Error fetching users:', error);
+      }
+    }
     if (session && status === "authenticated") {
       fetchUsers();
     }
   }, [session, status,users]);
 
-  const fetchUsers=async ()=>{
-    try {
-      // Simula una llamada a una API
-      console.log(session?.user?.username)
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${session?.user?.token}`,
-        },
-      });
-      const resD = await res.json();
-      setUsers(resD);
-    } catch (error) {
-      console.error('Error fetching users:', error);
-    }
-  }
+  
 
 
   const handleDelete =  async(id:string)=>{

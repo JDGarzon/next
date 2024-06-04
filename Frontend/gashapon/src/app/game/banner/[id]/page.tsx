@@ -23,7 +23,7 @@ export default function Page() {
     if(char.length==1){
       console.log(char)
       characters.push(char[0])
-    }else char.forEach((character) => {console.log(character),characters.push(character[0])})
+    }else char.forEach((character:any) => {console.log(character),characters.push(character[0])})
   }
   
   return(
