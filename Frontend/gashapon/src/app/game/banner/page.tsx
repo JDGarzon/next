@@ -92,7 +92,7 @@ export default function Banner(){
             const datauser = await resuser.json();
             console.log(datauser)
 
-            const updatedUser = { ...datauser, wishes: datauser.wishes - 10 };
+            const updatedUser = { ...datauser, wishes: datauser.wishes - 1 };
 
             const res2 = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/self`, {
                 method: "PUT",
