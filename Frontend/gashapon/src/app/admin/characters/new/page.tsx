@@ -39,12 +39,14 @@ export default function CreateCharacter() {
         "level":90,
         "img":formData.img
         })
+
       const res2 = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/character`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           authorization: `Bearer ${session?.user?.token}`,
         },
+        
         body:JSON.stringify({
           "constellation":0,
           "element":formData.element,

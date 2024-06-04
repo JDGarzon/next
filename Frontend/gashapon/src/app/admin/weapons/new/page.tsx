@@ -1,12 +1,14 @@
 "use client"
-import { useEffect, useState } from 'react';
+import { useState,useEffect } from 'react';
 import { useRouter } from "next/navigation";
-import "../../globals.css"
+import { useSession } from "next-auth/react";
+import "../../../globals.css";
 import Image from 'next/image';
 import Link from 'next/link';
 
 
 export default function CreateWeapon() {
+  const { data: session, status } = useSession();
   const [formData, setFormData] = useState({
     name: '',
     type:'',
@@ -15,6 +17,12 @@ export default function CreateWeapon() {
     rarity: '',
     img: ''
   });
+
+  useEffect(() => {
+    if (session && status === "authenticated") {
+
+    }
+  }, [session, status]);
 
   const router = useRouter();
 
@@ -25,7 +33,38 @@ export default function CreateWeapon() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      console.log('Formulario enviado:', {...formData, level: 90});
+      console.log({
+        "name": formData.name,
+        "type":formData.type,
+        "subStats":formData.subStats,
+        "effect":formData.effect,
+        "rarity": Number(formData.rarity),
+        "img": formData.img,
+        "level":90,
+        })
+
+      const res2 = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/weapon`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${session?.user?.token}`,
+        },
+        
+        body:JSON.stringify({
+          "name": formData.name,
+          "type":formData.type,
+          "subStats":formData.subStats,
+          "effect":formData.effect,
+          "rarity": Number(formData.rarity),
+          "img": formData.img,
+          "level":90,
+          }),
+      });
+
+      const re=await res2.json
+
+      console.log(re)
+
       router.push('/admin/weapons');
     } catch (error) {
       console.error('Error al enviar el formulario:', error);
@@ -55,12 +94,12 @@ export default function CreateWeapon() {
             <input className='character-form-input' placeholder='Ingrese el nombre del arma' type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
           </div>
           <div className='character-form-element'>
-            <label className='character-form-label' htmlFor="element">Tipo:</label>
-            <input className='character-form-input' placeholder='Ingrese el tipo del arma' type="text" id="element" name="element"  value={formData.type} onChange={handleChange} required />
+            <label className='character-form-label' htmlFor="type">Tipo:</label>
+            <input className='character-form-input' placeholder='Ingrese el tipo del arma' type="text" id="type" name="type"  value={formData.type} onChange={handleChange} required />
           </div>
           <div className='character-form-element'>
-            <label className='character-form-label' htmlFor="substats">Sub Stats:</label>
-            <input className='character-form-input' placeholder='Ingrese las estadisticas del arma' type="text" id="substats" name="substats" value={formData.subStats} onChange={handleChange} required min="1" max="5"/>
+            <label className='character-form-label' htmlFor="subStats">Sub Stats:</label>
+            <input className='character-form-input' placeholder='Ingrese las estadisticas del arma' type="text" id="subStats" name="subStats" value={formData.subStats} onChange={handleChange}/>
           </div>
           <div className='character-form-element'>
             <label className='character-form-label' htmlFor="effect">Effect:</label>
@@ -79,30 +118,5 @@ export default function CreateWeapon() {
       </div>
     </div>
 
-    /*
-    <div>
-      <h1>Crear Personaje</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="name">Nombre:</label>
-          <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
-        </div>
-        <div>
-          <label htmlFor="element">Elemento:</label>
-          <input type="text" id="element" name="element" value={formData.element} onChange={handleChange} required />
-        </div>
-        <div>
-          <label htmlFor="rarity">Rareza:</label>
-          <input type="number" id="rarity" name="rarity" value={formData.rarity} onChange={handleChange} required />
-        </div>
-        <div>
-          <label htmlFor="img">URL de la imagen:</label>
-          <input type="url" id="img" name="img" value={formData.img} onChange={handleChange} required />
-        </div>
-        <button type="submit">Crear Personaje</button>
-      </form>
-    </div>
-
-    */
   );
 }
