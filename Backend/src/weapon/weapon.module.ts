@@ -8,5 +8,6 @@ import { MongooseModule } from '@nestjs/mongoose';
   imports: [MongooseModule.forFeature([{ name: Weapon.name, schema: WeaponSchema }])],
   controllers: [WeaponController],
   providers: [WeaponService],
+  exports: [WeaponService]
 })
 export class WeaponModule {}

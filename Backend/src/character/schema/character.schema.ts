@@ -15,8 +15,8 @@ export class Character{
   @Prop({ enum: Element })
   element:string;
 
-  @Prop({ type: Types.ObjectId, ref: 'Weapon' })
-  weapon: Types.ObjectId;
+  @Prop({ ref: 'Weapon' })
+  weapon: string;
 
   @Prop()
   rarity:number;

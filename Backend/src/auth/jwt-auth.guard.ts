@@ -22,13 +22,15 @@ export class RolAuthGuard extends JwtAuthGuard {
         if (!roles || roles.length === 0) {
           return true;
         }
-    
+        
         const request = context.switchToHttp().getRequest();
         const user = request.user;
     
         const allowed = roles.some(role => user.rol === role);
+
         if (!allowed) {
-          throw new UnauthorizedException('You do not have permission to access this resource');
+
+          throw new UnauthorizedException('You do not have permission to access this resource '+user.rol);
         }
     
         return true;

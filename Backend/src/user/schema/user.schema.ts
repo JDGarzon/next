@@ -1,14 +1,11 @@
-import {Document, Types} from 'mongoose';
+import {Document} from 'mongoose';
 import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
 import Rol from '../entities/user.rol';
 
 export type UserDocument = User & Document;
 
 @Schema()
-export class User{
-
-  @Prop({ type: Types.ObjectId, auto: true })
-  _id: Types.ObjectId;
+export class User extends Document{
 
   @Prop({unique:true})
   email: string;
@@ -24,6 +21,16 @@ export class User{
 
   @Prop({ type: [[]], default: [] })
   almanac: any[][];
+
+  @Prop()
+  level: number;
+
+  @Prop()
+  level_points: number;
+  @Prop()
+  wishes: number;
+
+
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

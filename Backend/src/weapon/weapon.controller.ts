@@ -3,8 +3,8 @@ import { WeaponService } from './weapon.service';
 import { CreateWeaponDto } from './dto/create-weapon.dto';
 import { UpdateWeaponDto } from './dto/update-weapon.dto';
 import { UseGuards } from '@nestjs/common';
-import { JwtAuthGuard, RolAuthGuard } from 'src/auth/jwt-auth.guard';
-import { Roles } from 'src/decorator/rol.decorator';
+import { JwtAuthGuard, RolAuthGuard } from '../auth/jwt-auth.guard';
+import { Roles } from '../decorator/rol.decorator';
 
 @Controller('weapon')
 export class WeaponController {
@@ -28,20 +28,26 @@ export class WeaponController {
   @UseGuards(JwtAuthGuard, RolAuthGuard)
   @Roles(['ADMIN', 'PLAYER'])
   findOne(@Param('id') id: string) {
-    return this.weaponService.findOne(+id);
+    return this.weaponService.findOne(id);
   }
 
   @Put(':id')
   @UseGuards(JwtAuthGuard, RolAuthGuard)
   @Roles(['ADMIN'])
   update(@Param('id') id: string, @Body() updateWeaponDto: UpdateWeaponDto) {
-    return this.weaponService.update(+id, updateWeaponDto);
+    return this.weaponService.update(id, updateWeaponDto);
   }
 
   @Delete(':id')
   @UseGuards(JwtAuthGuard, RolAuthGuard)
   @Roles(['ADMIN'])
   remove(@Param('id') id: string) {
-    return this.weaponService.remove(+id);
+    return this.weaponService.remove(id);
+  }
+
+  @Get('name/:name')
+  getByName(@Param('name') name: string) {
+    console.log(name)
+    return this.weaponService.getByName(name);
   }
 }
