@@ -1,7 +1,10 @@
 import Image from 'next/image';
 import "../app/globals.css";
 
-const CharacterCard = ({ character }) => {
+
+
+const CharacterCard = ({ character:Character}) => {
+  
   console.log(character)
   return (
     <div className="card">

@@ -16,37 +16,40 @@ export default function UpdateCharacter() {
     weapon:""
   });
   const [errors, setErrors] = useState<string[]>([]);
-  const search = useSearchParams ();
+  
   const { data: session, status } = useSession();
+  const search = useSearchParams ();
 
-  const id=search.get("id")  
 
   const router = useRouter();
 
   useEffect(() => {
+    const fetchCharacters = async () => {
+  
+      const id=search.get("id")  
+      try {
+        // Simula una llamada a una API
+        console.log(session?.user?.username)
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/character/${id}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${session?.user?.token}`,
+          },
+        });
+        const resD = await res.json();
+        console.log(resD)
+        setFormData(resD);
+      } catch (error) {
+        console.error('Error fetching characters:', error);
+      }
+    };
     if (session && status === "authenticated") {
       fetchCharacters();
     }
-  }, [session, status]);
+  }, [session, status,search]);
 
-  const fetchCharacters = async () => {
-    try {
-      // Simula una llamada a una API
-      console.log(session?.user?.username)
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/character/${id}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${session?.user?.token}`,
-        },
-      });
-      const resD = await res.json();
-      console.log(resD)
-      setFormData(resD);
-    } catch (error) {
-      console.error('Error fetching characters:', error);
-    }
-  };
+  
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });

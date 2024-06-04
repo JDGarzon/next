@@ -5,7 +5,6 @@ import { BannerElements } from "@/utils/BannerConstants";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import Alert from '@/components/Alert';
 
 export default function Banner(){
     const { data: session, status } = useSession();
@@ -75,7 +74,7 @@ export default function Banner(){
         } catch (error) {
             setAlert({ message: "Faltan deseos", type: 'error' });
             console.log(error)
-            return <Alert message={alert.message} type={alert.type} />
+            
         }
         
     }
@@ -120,7 +119,7 @@ export default function Banner(){
         } catch (error) {
             setAlert({ message: "Faltan deseos", type: 'error' });
             console.log(error)
-            return <Alert message={alert.message} type={alert.type} />
+
         }
        
     }

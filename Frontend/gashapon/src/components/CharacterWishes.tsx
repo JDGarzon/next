@@ -12,7 +12,6 @@ export default function CharactersWish({characters}) {
 
   useEffect(() => {
     if (session && status === "authenticated") {
-      console.log(characters)
     }
   }, [session, status]);
 

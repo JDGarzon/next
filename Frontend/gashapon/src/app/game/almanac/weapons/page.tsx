@@ -11,27 +11,28 @@ export default function Characters() {
   const [weapons, setWeapons] = useState([]);
 
   useEffect(() => {
+    const fetchCharacters = async () => {
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/${session?.user?.username}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${session?.user?.token}`,
+          },
+        });
+        const resD = await res.json();
+        console.log(resD.almanac[0])
+        setWeapons(resD.almanac[0]);
+      } catch (error) {
+        console.error('Error fetching weapons:', error);
+      }
+    };
     if (session && status === "authenticated") {
       fetchCharacters();
     }
   }, [session, status]);
 
-  const fetchCharacters = async () => {
-    try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/${session?.user?.username}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${session?.user?.token}`,
-        },
-      });
-      const resD = await res.json();
-      console.log(resD.almanac[0])
-      setWeapons(resD.almanac[0]);
-    } catch (error) {
-      console.error('Error fetching weapons:', error);
-    }
-  };
+  
 
   if (status === "loading") {
     return <div>Loading...</div>;
