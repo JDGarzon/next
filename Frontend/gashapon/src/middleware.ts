@@ -7,12 +7,13 @@ export async function middleware(request: NextRequest) {
   
   // Obtén el token de sesión, suponiendo que estás usando next-auth
   const token = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET });
+  console.log(token)
 
   // Define las rutas protegidas
   const protectedRoutes = ['/', '/game', '/admin'];
 
   if (protectedRoutes.some((path) => url.pathname.startsWith(path))) {
-    // Si el usuario no está autenticado, redirígelo a la página de inicio de sesión
+
     if (!token) {
       url.pathname = '/sign/login';
       return NextResponse.redirect(url);

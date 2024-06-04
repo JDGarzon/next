@@ -20,7 +20,7 @@ const LoginPage = () => {
       password,
       redirect: false,
     });
-
+    console.log(responseNextAuth?.status)
     if (responseNextAuth?.error) {
       setErrors(responseNextAuth.error.split(","));
       return;
@@ -28,7 +28,6 @@ const LoginPage = () => {
     
 
     router.push("/game/banner");
-    console.log("**********")
   };
 
   return (
