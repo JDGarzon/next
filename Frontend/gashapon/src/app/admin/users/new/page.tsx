@@ -3,6 +3,8 @@ import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import "../../../globals.css";
+import Link from 'next/link';
+import Image from 'next/image';
 
 const RegisterPage = () => {
     const { data: session, status } = useSession();
@@ -68,49 +70,68 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="register-container"> {/* Agregamos una clase de contenedor similar al login */}
-      <div className="register-box"> {/* Agregamos una clase de caja similar al login */}
-        <h1>Register</h1>
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="username"
-            name="name"
-            className="form-control mb-2"
-            value={name}
-            onChange={(event) => setName(event.target.value)}
-          />
-          <input
-            type="email"
-            placeholder="email"
-            name="email"
-            className="form-control mb-2"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-          />
-          <input
-            type="password"
-            placeholder="password"
-            name="password"
-            className="form-control mb-2"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
-           <input
-            type="text"
-            placeholder="role"
-            name="role"
-            className="form-control mb-2"
-            value={role}
-            onChange={(event) => setRole(event.target.value)}
-          />
-          <button type="submit" className="btn btn-primary">
-            Register
-          </button>
-          <button type="button" className="btn btn-secondary" onClick={()=>{router.push("/sign/login");}}>
-            Cancel
-          </button>
-          
+    <div className="admin-container">
+      <div className="admin-dashboard-header">
+        <h1 className="dashboard-title">Admin Dashboard</h1>
+        <Link href={`/sign/login`} className="sign-out-btn">Sign out</Link>
+      </div>
+      <div className="table-container">
+        <div className="table-header">
+          <h2> Nuevo Usuario</h2>
+          <div>
+            <Link href={`/admin/users`} className="table-header-btn">
+              <Image className="table-option-btn" src={"/icons/return.png"} alt={"Return Icon"} width={40} height={40} />
+              <p>Regresar</p>
+            </Link>
+          </div>
+        </div>
+        <form className="character-form" onSubmit={handleSubmit}>
+          <div className='character-form-element'>
+            <label className='character-form-label' htmlFor="name">Nombre:</label>
+            <input
+              className='character-form-input' 
+              placeholder='Ingrese el nombre del usuario'
+              type="text"
+              name="name"
+              value={name}
+              onChange={(event) => setName(event.target.value)}
+            />
+          </div>
+          <div className='character-form-element'>
+            <label className='character-form-label' htmlFor="email">Email:</label>
+
+            <input
+              className='character-form-input' 
+              placeholder='Ingrese el nombre del usuario'
+              type="email"
+              name="email"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+            />
+          </div>
+          <div className='character-form-element'>
+            <label className='character-form-label' htmlFor="password">Contraseña:</label>
+            <input
+              className='character-form-input' 
+              placeholder='Ingrese el nombre del usuario'
+              type="password"
+              name="password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+            />
+          </div>
+          <div className='character-form-element'>
+            <label className='character-form-label' htmlFor="rol">Rol:</label>
+            <input
+              className='character-form-input' 
+              placeholder='Ingrese el rol del usuario'
+              type="text"
+              name="rol"
+              value={password}
+              onChange={(event) => setRole(event.target.value)}
+            />
+          </div>
+          <button className='submit-btn' type="submit">Crear Usuario</button>
         </form>
 
         {errors.length > 0 && (
