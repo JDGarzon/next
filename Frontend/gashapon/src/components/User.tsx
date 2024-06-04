@@ -7,8 +7,12 @@ import { useRouter } from "next/navigation";
 
 export default function User(){
     const { data: session, status } = useSession();
-    const [user, setUser] = useState({"level":1,"wishes":0});
+    const [user, setUser] = useState({
+      "level":1,
+      "wishes":0
+    });
     const router = useRouter();
+    const [errors, setErrors] = useState<string[]>([]);
 
     const fetchUser=async ()=>{
         const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/${session?.user?.username}`, {
@@ -29,7 +33,35 @@ export default function User(){
       }
     }, [session,status]);
 
-
+    const handleMoreWishes = async (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+    
+      // Actualiza el estado del usuario con +5 deseos
+      const updatedUser = { ...user, wishes: user.wishes + 5 };
+      setUser(updatedUser);
+    
+      try {
+        const res2 = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/${user._id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${session?.user?.token}`,
+          },
+          body: JSON.stringify(updatedUser),
+        });
+    
+        const responseAPI = await res2.json();
+    
+        if (!res2.ok) {
+          setErrors(responseAPI.message);
+          return;
+        }
+    
+      } catch (error) {
+        console.error('Error al enviar el formulario:', error);
+      }
+    };
+    
 
     return (
         <nav className="game-nav">
@@ -46,7 +78,7 @@ export default function User(){
             <div className="wish-nav-detail-container">
                 <Image className="wish-img" src="/icons/star.png" alt="Game wish image" width={100} height={30}></Image>
                 <div className="wish-amount">{user.wishes}</div>
-                <button className="more-wishes-btn"> + </button>
+                <button className="more-wishes-btn" onClick={()=>handleMoreWishes}> + </button>
             </div>
 
         </nav>
