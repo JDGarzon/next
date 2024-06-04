@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Image from "next/image";
 import "../globals.css";
+import User from '@/components/User';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,24 +19,8 @@ export default function RootLayout({
     <html>
       <body className={`${inter.className} game-body`}>
         
-        <nav className="game-nav">
-            <div className="user-nav-details-container">
-                <Image className="user-img" src="/icons/userIcon.png" alt="User placeholder" width={100} height={30}></Image>
-                <div className="level-bar-container">
-                    <div className="level-bar"></div>
-                </div>
-                <p className="user-level">Nv.<span>##</span></p>
-            </div>
-
-            <button className="almanac-btn"> Almanaque </button>
-
-            <div className="wish-nav-detail-container">
-                <Image className="wish-img" src="/icons/star.png" alt="Game wish image" width={100} height={30}></Image>
-                <div className="wish-amount">##</div>
-                <button className="more-wishes-btn"> + </button>
-            </div>
-
-        </nav>
+        <User/>
+        
           {children}  
       </body>
     </html>

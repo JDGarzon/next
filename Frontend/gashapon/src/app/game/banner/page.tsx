@@ -3,10 +3,18 @@
 import Image from "next/image";
 import { BannerElements } from "@/utils/BannerConstants";
 import { useState } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function Banner(){
-
+    const { data: session, status } = useSession();
     const [activeBanner, setActiveBanner] = useState(0);
+    const router = useRouter();
+  
+    if (status === "loading") {
+      return <p>Loading...</p>;
+    }
+
 
     const clickNext = () =>{
         activeBanner === BannerElements.length - 1 
@@ -22,6 +30,34 @@ export default function Banner(){
 
     const clickSpecificElement = (index : number) =>{
         setActiveBanner(index)
+    }
+
+    const fetch10Wishes=async()=>{
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/gacha/character10`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${session?.user?.token}`,
+        },
+        });
+        const data = await res.json();
+        console.log(data)
+        const queryString = new URLSearchParams({ characters: JSON.stringify(data) }).toString();
+        router.push(`/game/banner/[id]?id=${queryString}`);
+    }
+
+    const fetch1Wishes=async()=>{
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/gacha/character1`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              authorization: `Bearer ${session?.user?.token}`,
+            },
+          });
+          const data = await res.json();
+          console.log(data)
+          const queryString = new URLSearchParams({ characters: JSON.stringify(data) }).toString();
+        router.push(`/game/banner/[id]?id=${queryString}`);
     }
 
     return (
@@ -48,8 +84,8 @@ export default function Banner(){
                     <div className="banner-image-section">
                         <Image className="banner-character" src={element.bannerImg} alt={element.priceName} width={500} height={300}/>
                         <div className="banner-btns">
-                            <button className="wish-btn"> x1 </button>
-                            <button className="wish-btn"> x10 </button>
+                            <button className="wish-btn" onClick={fetch1Wishes}> x1 </button>
+                            <button className="wish-btn" onClick={fetch10Wishes}> x10 </button>
                         </div>
                         
                     </div>
